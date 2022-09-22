@@ -18,4 +18,6 @@ public class GenericMapper {
         return modelMapper.map(object, tClass);
     }
 
+    //Teste
+
 }
