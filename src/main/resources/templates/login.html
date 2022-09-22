@@ -107,7 +107,7 @@
                             <div class="row m-t-25 text-left">
                                 <div class="col-12">
                                     <div class="forgot-phone text-left f-left">
-                                        <a class="text-left f-w-600" href="sign-up.html">Registre-se</a>
+                                        <a class="text-left f-w-600" th:href="@{/sign-up}">Registre-se</a>
                                     </div>
                                     <div class="forgot-phone text-right f-right">
                                         <a class="text-right f-w-600" href="#">Esqueceu a senha?</a>
@@ -128,8 +128,18 @@
                     </div>
 
                 </form>
+
+
                 <!-- end of form -->
+                <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px"
+                     th:if="'enabled' == ${errorMsg}">
+                    Usuario e/ou Senha estão incorretos. Verifique!
+                    <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
+
             <!-- end of col-sm-12 -->
         </div>
         <!-- end of row -->
