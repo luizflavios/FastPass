@@ -18,6 +18,7 @@ public class DevConfiguration {
         insertUsers();
     }
 
+
     public void insertUsers() {
         User user = User.builder()
                 .fullName("Luiz Flavio de Souza Sales Filho")

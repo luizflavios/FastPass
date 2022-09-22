@@ -2,79 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>Fast-Pass</title>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" name="viewport">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-    <link href="assets/pages/waves/css/waves.min.css" media="all" rel="stylesheet" type="text/css">
-    <link href="assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/pages/waves/css/waves.min.css" media="all" rel="stylesheet" type="text/css">
-    <link href="assets/icon/themify-icons/themify-icons.css" rel="stylesheet" type="text/css">
-    <link href="assets/icon/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css">
-    <link href="https://www.amcharts.com/lib/3/plugins/export/export.css" media="all" rel="stylesheet"
-          type="text/css"/>
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
-</head>
+<div th:replace="~{util :: head}"></div>
 
 <body themebg-pattern="theme1">
-<!-- Pre-loader start -->
-<div class="theme-loader">
-    <div class="loader-track">
-        <div class="preloader-wrapper">
-            <div class="spinner-layer spinner-blue">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-            <div class="spinner-layer spinner-red">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
 
-            <div class="spinner-layer spinner-yellow">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-
-            <div class="spinner-layer spinner-green">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Pre-loader end -->
+<div th:replace="~{util :: pre-loader}"></div>
 
 <section class="login-block">
     <!-- Container-fluid starts -->
@@ -110,7 +42,8 @@
                                         <a class="text-left f-w-600" th:href="@{/sign-up}">Registre-se</a>
                                     </div>
                                     <div class="forgot-phone text-right f-right">
-                                        <a class="text-right f-w-600" href="#">Esqueceu a senha?</a>
+                                        <a class="text-right f-w-600" th:href="@{/forgot-password}">Esqueceu a
+                                            senha?</a>
                                     </div>
                                 </div>
                             </div>
@@ -131,6 +64,8 @@
 
 
                 <!-- end of form -->
+
+                <!-- Alertas -->
                 <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px"
                      th:if="'enabled' == ${errorMsg}">
                     Usuario e/ou Senha estão incorretos. Verifique!
@@ -138,6 +73,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
+                <div class="alert alert-success alert-dismissible" role="alert" style="margin-top:20px"
+                     th:if="'enabled' == ${signUpMsg}">
+                    Enviamos um email para: <strong><label th:text="${userResponseDTO.email}"></label></strong>, onde
+                    você encontrará o
+                    link de ativação e poderá começar utilizar o <strong>Fast
+                    Pass</strong>!
+                    <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
             </div>
 
             <!-- end of col-sm-12 -->
