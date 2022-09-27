@@ -25,8 +25,8 @@ public class Ticket implements Serializable, GenericEntity {
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "payment_method_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
     @Column(nullable = false, updatable = false)

@@ -47,7 +47,9 @@
                                                 <div class="card-block">
                                                     <div class="row align-items-center">
                                                         <div class="col-8">
-                                                            <h4 class="text-c-purple">R$ 200,58</h4>
+                                                            <h4 class="text-c-purple">R$ <label
+                                                                    th:text="${dashboardResponseDTO.balanceAvailable}"></label>
+                                                            </h4>
                                                             <h6 class="text-muted m-b-0">Créditos disponíveis</h6>
                                                         </div>
                                                         <div class="col-4 text-right">
@@ -73,7 +75,9 @@
                                                 <div class="card-block">
                                                     <div class="row align-items-center">
                                                         <div class="col-8">
-                                                            <h4 class="text-c-green">12</h4>
+                                                            <h4 class="text-c-green"><label
+                                                                    th:text="${dashboardResponseDTO.pastEvents}"></label>
+                                                            </h4>
                                                             <h6 class="text-muted m-b-0">Eventos passados</h6>
                                                         </div>
                                                         <div class="col-4 text-right">
@@ -98,7 +102,9 @@
                                                 <div class="card-block">
                                                     <div class="row align-items-center">
                                                         <div class="col-8">
-                                                            <h4 class="text-c-red">1</h4>
+                                                            <h4 class="text-c-red"><label
+                                                                    th:text="${dashboardResponseDTO.futureEvents}"></label>
+                                                            </h4>
                                                             <h6 class="text-muted m-b-0">Eventos futuros</h6>
                                                         </div>
                                                         <div class="col-4 text-right">
@@ -123,7 +129,9 @@
                                                 <div class="card-block">
                                                     <div class="row align-items-center">
                                                         <div class="col-8">
-                                                            <h4 class="text-c-blue">13</h4>
+                                                            <h4 class="text-c-blue"><label
+                                                                    th:text="${dashboardResponseDTO.rechargesPerformed}"></label>
+                                                            </h4>
                                                             <h6 class="text-muted m-b-0">Recargas realizadas</h6>
                                                         </div>
                                                         <div class="col-4 text-right">

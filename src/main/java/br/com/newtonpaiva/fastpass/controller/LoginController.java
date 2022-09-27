@@ -5,6 +5,7 @@ import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.PageConstants;
 import br.com.newtonpaiva.fastpass.generic.GenericMapper;
 import br.com.newtonpaiva.fastpass.model.User;
+import br.com.newtonpaiva.fastpass.service.IndexService;
 import br.com.newtonpaiva.fastpass.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,16 +27,24 @@ public class LoginController {
     private GenericMapper genericMapper;
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private IndexService indexService;
+    @Autowired
+    private IndexController indexController;
 
     public LoginController() {
         this.user = new User();
     }
 
     @GetMapping
-    public ModelAndView loadLoginPage() {
+    public ModelAndView loadLoginPage(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(PageConstants.LOGIN_FILE);
-        modelAndView.addObject(ERROR_MSG, "disabled");
+        if (session.getAttribute("user") != null) {
+            modelAndView = indexController.loadIndexPage();
+        } else {
+            modelAndView.setViewName(PageConstants.LOGIN_FILE);
+            modelAndView.addObject(ERROR_MSG, "disabled");
+        }
         return modelAndView;
     }
 
@@ -44,11 +53,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         try {
             UserResponseDTO userResponseDTO = loginService.login((User) genericMapper.toEntity(userRequestDTO, user.getClass()));
-            modelAndView.setViewName(PageConstants.INDEX_FILE);
-            modelAndView.addObject(PageConstants.NAME_PAGE, PageConstants.INDEX_NAME);
-            modelAndView.addObject(PageConstants.REASON_PAGE, PageConstants.INDEX_REASON);
-
-            modelAndView.addObject("userResponseDTO", userResponseDTO);
+            indexController.setIndexObjects(modelAndView, userResponseDTO);
             session.setAttribute("user", userResponseDTO);
         } catch (EntityNotFoundException e) {
             modelAndView.setViewName(PageConstants.LOGIN_FILE);

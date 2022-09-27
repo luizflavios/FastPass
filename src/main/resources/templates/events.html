@@ -43,28 +43,128 @@
                                         <div class="col-sm-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Hello card</h5>
-                                                    <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-                                                    <div class="card-header-right">
-                                                        <ul class="list-unstyled card-option">
-                                                            <li><i class="fa fa-chevron-left"></i></li>
-                                                            <li><i class="fa fa-window-maximize full-card"></i></li>
-                                                            <li><i class="fa fa-minus minimize-card"></i></li>
-                                                            <li><i class="fa fa-refresh reload-card"></i></li>
-                                                            <li><i class="fa fa-times close-card"></i></li>
-                                                        </ul>
-                                                    </div>
+                                                    <h5>Próximos Eventos</h5>
                                                 </div>
                                                 <div class="card-block">
-                                                    <p>
-                                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                        nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                                                        sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                                    </p>
+                                                    <div class="col-xl-12 col-md-12">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Evento</th>
+                                                                    <th>Data Evento</th>
+                                                                    <th>Valor (R$)</th>
+                                                                    <th class="text-right">Status Compra</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-inline-block align-middle">
+                                                                            <img alt="user image"
+                                                                                 class="img-40 align-top m-r-15"
+                                                                                 src="assets/images/avatar-blank.jpg">
+                                                                            <div class="d-inline-block">
+                                                                                <h6>Festival Planeta
+                                                                                    Brasil 2022</h6>
+                                                                                <p class="text-muted m-b-0">
+                                                                                    Festival a sua cara</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>24/09/2022</td>
+                                                                    <td>R$ 12,00</td>
+                                                                    <td class="text-right"><label
+                                                                            class="label label-success">Aprovada</label>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-right m-r-20"
+                                                                 th:if="null != ${allEvents}">
+                                                                <a class=" b-b-primary text-primary" href="#!">Ver
+                                                                    todos os eventos</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-7">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Comprar Tickets</h5>
+                                                </div>
+                                                <div class="col-md-7" style="margin-top: 10px;">
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <form class="form-material">
+                                                                <div class="form-group form-default">
+                                                                    <input class="form-control" name="footer-email"
+                                                                           required="" type="text">
+                                                                    <span class="form-bar"></span>
+                                                                    <label class="float-label">Username</label>
+                                                                </div>
+                                                                <div class="form-group form-default">
+                                                                        <textarea class="form-control"
+                                                                                  required=""></textarea>
+                                                                    <span class="form-bar"></span>
+                                                                    <label class="float-label">Text area
+                                                                        Input</label>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Eventos Passados</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="col-xl-12 col-md-12">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Evento</th>
+                                                                    <th>Data Evento</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-inline-block align-middle">
+                                                                            <img alt="user image"
+                                                                                 class="img-40 align-top m-r-15"
+                                                                                 src="assets/images/avatar-blank.jpg">
+                                                                            <div class="d-inline-block">
+                                                                                <h6>Festival Planeta
+                                                                                    Brasil 2022</h6>
+                                                                                <p class="text-muted m-b-0">
+                                                                                    Festival a sua cara</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>24/09/2022</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-right m-r-20"
+                                                                 th:if="null != ${allEvents}">
+                                                                <a class=" b-b-primary text-primary" href="#!">Ver
+                                                                    todos os eventos</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +174,15 @@
                         </div>
                     </div>
 
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

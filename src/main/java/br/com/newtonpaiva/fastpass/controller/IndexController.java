@@ -1,6 +1,8 @@
 package br.com.newtonpaiva.fastpass.controller;
 
+import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.PageConstants;
+import br.com.newtonpaiva.fastpass.service.IndexService;
 import br.com.newtonpaiva.fastpass.util.FastPassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,15 +16,21 @@ public class IndexController {
 
     @Autowired
     private FastPassUtil fastPassUtil;
+    @Autowired
+    private IndexService indexService;
 
     @GetMapping
     public ModelAndView loadIndexPage() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(PageConstants.INDEX_FILE);
-        modelAndView.addObject(PageConstants.NAME_PAGE, PageConstants.INDEX_NAME);
-        modelAndView.addObject(PageConstants.REASON_PAGE, PageConstants.INDEX_REASON);
-        modelAndView.addObject("userResponseDTO", fastPassUtil.getLoggedUser());
+        setIndexObjects(modelAndView, fastPassUtil.getLoggedUser());
         return modelAndView;
     }
 
+    public void setIndexObjects(ModelAndView modelAndView, UserResponseDTO userResponseDTO) {
+        modelAndView.setViewName(PageConstants.INDEX_FILE);
+        modelAndView.addObject(PageConstants.NAME_PAGE, PageConstants.INDEX_NAME);
+        modelAndView.addObject(PageConstants.REASON_PAGE, PageConstants.INDEX_REASON);
+        modelAndView.addObject("userResponseDTO", userResponseDTO);
+        modelAndView.addObject("dashboardResponseDTO", indexService.setDashboardPersonalInfo(userResponseDTO));
+    }
 }
