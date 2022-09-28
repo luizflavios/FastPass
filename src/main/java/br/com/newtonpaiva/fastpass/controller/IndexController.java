@@ -1,7 +1,10 @@
 package br.com.newtonpaiva.fastpass.controller;
 
+import br.com.newtonpaiva.fastpass.dto.EventResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.PageConstants;
+import br.com.newtonpaiva.fastpass.generic.GenericMapper;
+import br.com.newtonpaiva.fastpass.service.EventService;
 import br.com.newtonpaiva.fastpass.service.IndexService;
 import br.com.newtonpaiva.fastpass.util.FastPassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,10 @@ public class IndexController {
     private FastPassUtil fastPassUtil;
     @Autowired
     private IndexService indexService;
+    @Autowired
+    private EventService eventService;
+    @Autowired
+    private GenericMapper genericMapper;
 
     @GetMapping
     public ModelAndView loadIndexPage() {
@@ -31,6 +38,9 @@ public class IndexController {
         modelAndView.addObject(PageConstants.NAME_PAGE, PageConstants.INDEX_NAME);
         modelAndView.addObject(PageConstants.REASON_PAGE, PageConstants.INDEX_REASON);
         modelAndView.addObject("userResponseDTO", userResponseDTO);
+        modelAndView.addObject("eventResponseDTO", genericMapper.toCollectionDTO
+                (eventService.futureEvents(userResponseDTO),
+                        EventResponseDTO.class));
         modelAndView.addObject("dashboardResponseDTO", indexService.setDashboardPersonalInfo(userResponseDTO));
     }
 }

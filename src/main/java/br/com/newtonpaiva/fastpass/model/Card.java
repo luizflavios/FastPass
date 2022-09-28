@@ -25,6 +25,8 @@ public class Card implements Serializable, GenericEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    private Double balance;
+
     @Column(name = "card_number", nullable = false)
     private String cardNumber;
 

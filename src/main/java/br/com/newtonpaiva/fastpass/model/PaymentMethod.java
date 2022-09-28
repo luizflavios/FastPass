@@ -29,13 +29,9 @@ public class PaymentMethod implements Serializable, GenericEntity {
     @Column(nullable = false)
     private Boolean active;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "credit_card_id")
-    private CreditCard creditCard;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "debit_card_id")
-    private DebitCard debitCard;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "pix")
+    private Pix pix;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp

@@ -166,4 +166,83 @@
                                tableName="tickets"/>
     </changeSet>
 
+    <changeSet id="1664403738192-1"
+               author="Luiz Flavio (generated)">
+        <createTable tableName="pix">
+            <column autoIncrement="true"
+                    name="id"
+                    type="INT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_pix"/>
+            </column>
+            <column name="qr_code"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1664403738192-2"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="payment_methods">
+            <column name="pix"
+                    type="INT"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1664403738192-4"
+               author="Luiz Flavio (generated)">
+        <addForeignKeyConstraint baseColumnNames="pix"
+                                 baseTableName="payment_methods"
+                                 constraintName="FK_PAYMENT_METHODS_ON_PIX"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pix"/>
+    </changeSet>
+    <changeSet id="1664403738192-5"
+               author="Luiz Flavio (generated)">
+        <dropForeignKeyConstraint baseTableName="credit_cards"
+                                  constraintName="fk_credit_cards_on_user"/>
+    </changeSet>
+    <changeSet id="1664403738192-6"
+               author="Luiz Flavio (generated)">
+        <dropForeignKeyConstraint baseTableName="debit_cards"
+                                  constraintName="fk_debit_cards_on_user"/>
+    </changeSet>
+    <changeSet id="1664403738192-7"
+               author="Luiz Flavio (generated)">
+        <dropForeignKeyConstraint baseTableName="payment_methods"
+                                  constraintName="fk_payment_methods_on_credit_card"/>
+    </changeSet>
+    <changeSet id="1664403738192-8"
+               author="Luiz Flavio (generated)">
+        <dropForeignKeyConstraint baseTableName="payment_methods"
+                                  constraintName="fk_payment_methods_on_debit_card"/>
+    </changeSet>
+    <changeSet id="1664403738192-9"
+               author="Luiz Flavio (generated)">
+        <dropTable cascadeConstraints="true"
+                   tableName="credit_cards"/>
+    </changeSet>
+    <changeSet id="1664403738192-10"
+               author="Luiz Flavio (generated)">
+        <dropTable cascadeConstraints="true"
+                   tableName="debit_cards"/>
+    </changeSet>
+    <changeSet id="1664403738192-11"
+               author="Luiz Flavio (generated)">
+        <dropColumn columnName="credit_card_id"
+                    tableName="payment_methods"/>
+
+        <dropColumn columnName="debit_card_id"
+                    tableName="payment_methods"/>
+    </changeSet>
+
+    <changeSet id="1664404208473-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="cards">
+            <column name="balance"
+                    type="DOUBLE"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -200,63 +200,6 @@
                                                                         class="label label-success">Aprovada</label>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="d-inline-block align-middle">
-                                                                        <img alt="user image"
-                                                                             class="img-radius img-40 align-top m-r-15"
-                                                                             src="assets/images/avatar-blank.jpg">
-                                                                        <div class="d-inline-block">
-                                                                            <h6>Cerveja Heineken</h6>
-                                                                            <p class="text-muted m-b-0">Festival Planeta
-                                                                                Brasil 2022</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>24/09/2022</td>
-                                                                <td>R$ 12,00</td>
-                                                                <td class="text-right"><label
-                                                                        class="label label-success">Aprovada</label>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="d-inline-block align-middle">
-                                                                        <img alt="user image"
-                                                                             class="img-radius img-40 align-top m-r-15"
-                                                                             src="assets/images/avatar-blank.jpg">
-                                                                        <div class="d-inline-block">
-                                                                            <h6>Cerveja Heineken</h6>
-                                                                            <p class="text-muted m-b-0">Festival Planeta
-                                                                                Brasil 2022</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>24/09/2022</td>
-                                                                <td>R$ 12,00</td>
-                                                                <td class="text-right"><label
-                                                                        class="label label-success">Aprovada</label>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="d-inline-block align-middle">
-                                                                        <img alt="user image"
-                                                                             class="img-radius img-40 align-top m-r-15"
-                                                                             src="assets/images/avatar-blank.jpg">
-                                                                        <div class="d-inline-block">
-                                                                            <h6>Energético Red Bull</h6>
-                                                                            <p class="text-muted m-b-0">Festival Planeta
-                                                                                Brasil 2022</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>24/09/2022</td>
-                                                                <td>R$ 15,00</td>
-                                                                <td class="text-right"><label
-                                                                        class="label label-danger">Negada</label>
-                                                                </td>
-                                                            </tr>
                                                             </tbody>
                                                         </table>
                                                         <div class="text-right m-r-20">
@@ -283,46 +226,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-block">
-                                                    <div class="align-middle m-b-30">
+                                                    <div class="align-middle m-b-30"
+                                                         th:each="event : ${eventResponseDTO}">
                                                         <img alt="user image" class=" img-50 align-top m-r-15"
                                                              src="assets/images/avatar-blank.jpg">
                                                         <div class="d-inline-block">
-                                                            <h6>Festival Planeta Brasil 2022</h6>
-                                                            <p class="text-muted m-b-0">24/09/2022</p>
+                                                            <h6><label th:text="${event.name}"></label></h6>
+                                                            <p class="text-muted m-b-0"><label
+                                                                    th:text="${event.date}"></label></p>
                                                         </div>
                                                     </div>
-                                                    <div class="align-middle m-b-30">
-                                                        <img alt="user image" class=" img-50 align-top m-r-15"
-                                                             src="assets/images/avatar-blank.jpg">
-                                                        <div class="d-inline-block">
-                                                            <h6>Pagode do Tampinha</h6>
-                                                            <p class="text-muted m-b-0">17/09/2022</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="align-middle m-b-30">
-                                                        <img alt="user image" class=" img-50 align-top m-r-15"
-                                                             src="assets/images/avatar-blank.jpg">
-                                                        <div class="d-inline-block">
-                                                            <h6>Baile do Fera</h6>
-                                                            <p class="text-muted m-b-0">10/09/2022</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="align-middle m-b-30">
-                                                        <img alt="user image" class=" img-50 align-top m-r-15"
-                                                             src="assets/images/avatar-blank.jpg">
-                                                        <div class="d-inline-block">
-                                                            <h6>Bebs Unidade Contagem</h6>
-                                                            <p class="text-muted m-b-0">03/09/2022</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="align-middle m-b-30">
-                                                        <img alt="user image" class=" img-50 align-top m-r-15"
-                                                             src="assets/images/avatar-blank.jpg">
-                                                        <div class="d-inline-block">
-                                                            <h6>Bebs Unidade Contagem</h6>
-                                                            <p class="text-muted m-b-0">27/08/2022</p>
-                                                        </div>
-                                                    </div>
+
                                                     <div class="text-center">
                                                         <a class="b-b-primary text-primary" href="#!">Ver todos os
                                                             eventos</a>
