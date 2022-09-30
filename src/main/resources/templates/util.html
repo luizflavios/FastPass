@@ -1,0 +1,243 @@
+<head th:fragment="head">
+    <title>Fast-Pass</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" name="viewport">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link href="assets/pages/waves/css/waves.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/pages/waves/css/waves.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="assets/icon/themify-icons/themify-icons.css" rel="stylesheet" type="text/css">
+    <link href="assets/icon/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css">
+    <link href="https://www.amcharts.com/lib/3/plugins/export/export.css" media="all" rel="stylesheet"
+          type="text/css"/>
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<!-- Pre-loader start -->
+<div class="theme-loader" th:fragment="pre-loader">
+    <div class="loader-track">
+        <div class="preloader-wrapper">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pre-loader end -->
+
+<!-- Side Bar -->
+<nav class="pcoded-navbar" th:fragment="side-bar">
+    <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+    <div class="pcoded-inner-navbar main-menu">
+        <div class="">
+            <div class="main-menu-header">
+                <img alt="User-Profile-Image" class="img-80 img-radius"
+                     src="assets/images/faq_man.png">
+                <div class="user-details">
+                    <span id="more-details"><label th:text="${userResponseDTO.fullName}"></label></span>
+                </div>
+            </div>
+        </div>
+        <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Navegar</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="active">
+                <a class="waves-effect waves-dark" th:href="@{/index}">
+                    <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+        <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus créditos</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li>
+                <a class="waves-effect waves-dark" href="form-elements-component.html">
+                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form
+                                            Components</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li>
+                <a class="waves-effect waves-dark" href="bs-basic-table.html">
+                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic
+                                            Table</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus eventos</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li>
+                <a class="waves-effect waves-dark" th:href="@{/events}">
+                    <span class="pcoded-micon"><i class="ti-ticket"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Meus Eventos</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="pcoded-navigation-label" data-i18n="nav.category.other">Minhas recargas</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="pcoded-hasmenu ">
+                <a class="waves-effect waves-dark" href="javascript:void(0)">
+                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+                <ul class="pcoded-submenu">
+                    <li class="">
+                        <a class="waves-effect waves-dark" href="javascript:void(0)">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext"
+                                  data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                    <li class="pcoded-hasmenu ">
+                        <a class="waves-effect waves-dark" href="javascript:void(0)">
+                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                            <span class="pcoded-mtext"
+                                  data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                        <ul class="pcoded-submenu">
+                            <li class="">
+                                <a class="waves-effect waves-dark" href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                    <span class="pcoded-mtext"
+                                          data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu
+                                                            Level 3.1</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a class="waves-effect waves-dark" href="javascript:void(0)">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext"
+                                  data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Nav Bar -->
+<nav class="navbar header-navbar pcoded-header" th:fragment="nav-bar">
+    <div class="navbar-wrapper">
+        <div class="navbar-logo">
+            <a class="mobile-menu waves-effect waves-light" href="#!" id="mobile-collapse">
+                <i class="ti-menu"></i>
+            </a>
+            <div class="mobile-search waves-effect waves-light">
+                <div class="header-search">
+                    <div class="main-search morphsearch-search">
+                        <div class="input-group">
+                            <span class="input-group-addon search-close"><i class="ti-close"></i></span>
+                            <input class="form-control" placeholder="Enter Keyword" type="text">
+                            <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="index.html">
+                <img alt="Theme-Logo" class="img-fluid" src="assets/images/logo-fast-sem-nome.png"/>
+            </a>
+            <a class="mobile-options waves-effect waves-light">
+                <i class="ti-more"></i>
+            </a>
+        </div>
+
+        <div class="navbar-container container-fluid">
+            <ul class="nav-left">
+                <li>
+                    <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                    </div>
+                </li>
+                <li>
+                    <a class="waves-effect waves-light" href="#!" onclick="javascript:toggleFullScreen()">
+                        <i class="ti-fullscreen"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-right">
+
+                <li class="user-profile header-notification">
+                    <a class="waves-effect waves-light" href="#!">
+                        <img alt="User-Profile-Image" class="img-radius" src="assets/images/faq_man.png">
+                        <span><label th:text="${userResponseDTO.fullName}"></label></span>
+                        <i class="ti-angle-down"></i>
+                    </a>
+                    <ul class="show-notification profile-notification">
+                        <li class="waves-effect waves-light">
+                            <a href="user-profile.html">
+                                <i class="ti-user"></i> Meus Dados
+                            </a>
+                        </li>
+                        <li class="waves-effect waves-light">
+                            <a th:href="@{/logout}">
+                                <i class="ti-layout-sidebar-left"></i> Sair
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+

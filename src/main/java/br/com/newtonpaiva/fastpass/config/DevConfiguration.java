@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 
 @Configuration
 public class DevConfiguration {
@@ -14,17 +15,19 @@ public class DevConfiguration {
     public UserRepository userRepository;
 
     @PostConstruct
-    public void initDevConfiguration() {
-        insertUsers();
+    private void initDevConfiguration() {
     }
 
-    public void insertUsers() {
+    private void insertUsers() {
         User user = User.builder()
+                .id(1)
                 .fullName("Luiz Flavio de Souza Sales Filho")
                 .email("ngpbrasil@gmail.com")
                 .password("admin")
                 .enabled(Boolean.TRUE)
+                .createdAt(LocalDateTime.now())
                 .build();
         userRepository.saveAndFlush(user);
     }
+
 }

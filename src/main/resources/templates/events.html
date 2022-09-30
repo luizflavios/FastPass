@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div th:replace="~{util :: head}"></div>
+
+<body>
+
+<div th:replace="~{util :: pre-loader}"></div>
+
+<div class="pcoded" id="pcoded">
+
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+
+        <div th:replace="~{util :: nav-bar}"></div>
+
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+
+                <div th:replace="~{util :: side-bar}"></div>
+
+                <div class="pcoded-content">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10"><label th:text="${namePage}"></label></h5>
+                                        <p class="m-b-0"><label th:text="${reasonPage}"></label></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
+
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Próximos Eventos</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="col-xl-12 col-md-12">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Evento</th>
+                                                                    <th>Data Evento</th>
+                                                                    <th>Valor (R$)</th>
+                                                                    <th class="text-right">Status Compra</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-inline-block align-middle">
+                                                                            <img alt="user image"
+                                                                                 class="img-40 align-top m-r-15"
+                                                                                 src="assets/images/avatar-blank.jpg">
+                                                                            <div class="d-inline-block">
+                                                                                <h6>Festival Planeta
+                                                                                    Brasil 2022</h6>
+                                                                                <p class="text-muted m-b-0">
+                                                                                    Festival a sua cara</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>24/09/2022</td>
+                                                                    <td>R$ 12,00</td>
+                                                                    <td class="text-right"><label
+                                                                            class="label label-success">Aprovada</label>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-right m-r-20"
+                                                                 th:if="null != ${allEvents}">
+                                                                <a class=" b-b-primary text-primary" href="#!">Ver
+                                                                    todos os eventos</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Comprar Tickets</h5>
+                                                </div>
+                                                <div class="col-md-7" style="margin-top: 10px;">
+                                                    <div class="card">
+                                                        <div class="card-block">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="card-block">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Eventos Passados</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="col-xl-12 col-md-12">
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Evento</th>
+                                                                    <th>Data Evento</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-inline-block align-middle">
+                                                                            <img alt="user image"
+                                                                                 class="img-40 align-top m-r-15"
+                                                                                 src="assets/images/avatar-blank.jpg">
+                                                                            <div class="d-inline-block">
+                                                                                <h6>Festival Planeta
+                                                                                    Brasil 2022</h6>
+                                                                                <p class="text-muted m-b-0">
+                                                                                    Festival a sua cara</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>24/09/2022</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-right m-r-20"
+                                                                 th:if="null != ${allEvents}">
+                                                                <a class=" b-b-primary text-primary" href="#!">Ver
+                                                                    todos os eventos</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Warning Section Starts -->
+<!-- Older IE warning message -->
+<!--[if lt IE 10]>
+<div class="ie-warning">
+    <h1>Warning!!</h1>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
+        to access this website.</p>
+    <div class="iew-container">
+        <ul class="iew-download">
+            <li>
+                <a href="http://www.google.com/chrome/">
+                    <img src="assets/images/browser/chrome.png" alt="Chrome">
+                    <div>Chrome</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.mozilla.org/en-US/firefox/new/">
+                    <img src="assets/images/browser/firefox.png" alt="Firefox">
+                    <div>Firefox</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.opera.com">
+                    <img src="assets/images/browser/opera.png" alt="Opera">
+                    <div>Opera</div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.apple.com/safari/">
+                    <img src="assets/images/browser/safari.png" alt="Safari">
+                    <div>Safari</div>
+                </a>
+            </li>
+            <li>
+                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                    <img src="assets/images/browser/ie.png" alt="">
+                    <div>IE (9 & above)</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+<!-- Warning Section Ends -->
+
+<!-- Required Jquery -->
+<script src="assets/js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery-ui/jquery-ui.min.js " type="text/javascript"></script>
+<script src="assets/js/popper.js/popper.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap/js/bootstrap.min.js " type="text/javascript"></script>
+<script src="assets/pages/widget/excanvas.js " type="text/javascript"></script>
+<!-- waves js -->
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<!-- jquery slimscroll js -->
+<script src="assets/js/jquery-slimscroll/jquery.slimscroll.js " type="text/javascript"></script>
+<!-- modernizr js -->
+<script src="assets/js/modernizr/modernizr.js " type="text/javascript"></script>
+<!-- slimscroll js -->
+<script src="assets/js/SmoothScroll.js" type="text/javascript"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+<!-- menu js -->
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/vertical-layout.min.js "></script>
+<!-- custom js -->
+<script src="assets/pages/dashboard/custom-dashboard.js" type="text/javascript"></script>
+<script src="assets/js/script.js " type="text/javascript"></script>
+</body>
+
+</html>

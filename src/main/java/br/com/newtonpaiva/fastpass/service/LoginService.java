@@ -15,6 +15,7 @@ public class LoginService {
 
     private final UserResponseDTO userResponseDTO;
 
+
     @Autowired
     private GenericMapper genericMapper;
     @Autowired
@@ -39,7 +40,7 @@ public class LoginService {
 
     @Transactional(readOnly = true)
     public void forgotPassword(String email) {
-
+        User user = userRepository.findByEmail(email).orElseThrow(EntityNotFoundException::new);
     }
 
 }
