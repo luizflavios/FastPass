@@ -78,7 +78,7 @@
         <div class="">
             <div class="main-menu-header">
                 <img alt="User-Profile-Image" class="img-80 img-radius"
-                     src="assets/images/faq_man.png">
+                     th:src="${userResponseDTO.userImage}">
                 <div class="user-details">
                     <span id="more-details"><label th:text="${userResponseDTO.fullName}"></label></span>
                 </div>
@@ -96,22 +96,22 @@
         </ul>
         <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus créditos</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li>
-                <a class="waves-effect waves-dark" href="form-elements-component.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form
-                                            Components</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li>
-                <a class="waves-effect waves-dark" href="bs-basic-table.html">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic
-                                            Table</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
+            <!--            <li>-->
+            <!--                <a class="waves-effect waves-dark" href="form-elements-component.html">-->
+            <!--                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>-->
+            <!--                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form-->
+            <!--                                            Components</span>-->
+            <!--                    <span class="pcoded-mcaret"></span>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a class="waves-effect waves-dark" href="bs-basic-table.html">-->
+            <!--                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>-->
+            <!--                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic-->
+            <!--                                            Table</span>-->
+            <!--                    <span class="pcoded-mcaret"></span>-->
+            <!--                </a>-->
+            <!--            </li>-->
 
         </ul>
 
@@ -128,51 +128,51 @@
 
         <div class="pcoded-navigation-label" data-i18n="nav.category.other">Minhas recargas</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu ">
-                <a class="waves-effect waves-dark" href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="">
-                        <a class="waves-effect waves-dark" href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext"
-                                  data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="pcoded-hasmenu ">
-                        <a class="waves-effect waves-dark" href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                            <span class="pcoded-mtext"
-                                  data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="">
-                                <a class="waves-effect waves-dark" href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext"
-                                          data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu
-                                                            Level 3.1</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a class="waves-effect waves-dark" href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext"
-                                  data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
+            <!--            <li class="pcoded-hasmenu ">-->
+            <!--                <a class="waves-effect waves-dark" href="javascript:void(0)">-->
+            <!--                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>-->
+            <!--                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>-->
+            <!--                    <span class="pcoded-mcaret"></span>-->
+            <!--                </a>-->
+            <!--                <ul class="pcoded-submenu">-->
+            <!--                    <li class="">-->
+            <!--                        <a class="waves-effect waves-dark" href="javascript:void(0)">-->
+            <!--                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>-->
+            <!--                            <span class="pcoded-mtext"-->
+            <!--                                  data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>-->
+            <!--                            <span class="pcoded-mcaret"></span>-->
+            <!--                        </a>-->
+            <!--                    </li>-->
+            <!--                    <li class="pcoded-hasmenu ">-->
+            <!--                        <a class="waves-effect waves-dark" href="javascript:void(0)">-->
+            <!--                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>-->
+            <!--                            <span class="pcoded-mtext"-->
+            <!--                                  data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>-->
+            <!--                            <span class="pcoded-mcaret"></span>-->
+            <!--                        </a>-->
+            <!--                        <ul class="pcoded-submenu">-->
+            <!--                            <li class="">-->
+            <!--                                <a class="waves-effect waves-dark" href="javascript:void(0)">-->
+            <!--                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>-->
+            <!--                                    <span class="pcoded-mtext"-->
+            <!--                                          data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu-->
+            <!--                                                            Level 3.1</span>-->
+            <!--                                    <span class="pcoded-mcaret"></span>-->
+            <!--                                </a>-->
+            <!--                            </li>-->
+            <!--                        </ul>-->
+            <!--                    </li>-->
+            <!--                    <li class="">-->
+            <!--                        <a class="waves-effect waves-dark" href="javascript:void(0)">-->
+            <!--                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>-->
+            <!--                            <span class="pcoded-mtext"-->
+            <!--                                  data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>-->
+            <!--                            <span class="pcoded-mcaret"></span>-->
+            <!--                        </a>-->
+            <!--                    </li>-->
 
-                </ul>
-            </li>
+            <!--                </ul>-->
+            <!--            </li>-->
         </ul>
     </div>
 </nav>
@@ -219,7 +219,7 @@
 
                 <li class="user-profile header-notification">
                     <a class="waves-effect waves-light" href="#!">
-                        <img alt="User-Profile-Image" class="img-radius" src="assets/images/faq_man.png">
+                        <img alt="User-Profile-Image" class="img-radius" th:src="${userResponseDTO.userImage}">
                         <span><label th:text="${userResponseDTO.fullName}"></label></span>
                         <i class="ti-angle-down"></i>
                     </a>

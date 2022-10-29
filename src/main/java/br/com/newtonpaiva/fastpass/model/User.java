@@ -28,6 +28,8 @@ public class User implements Serializable, GenericEntity {
     private String password;
     @Column(nullable = false)
     private Boolean enabled;
+    @Column(columnDefinition = "text")
+    private String userImage;
 
     @Column(nullable = false, name = "created_at")
     @CreationTimestamp

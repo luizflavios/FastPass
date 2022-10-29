@@ -245,4 +245,54 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1667043990061-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="transactions">
+            <column name="status"
+                    type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1667043990061-2"
+               author="Luiz Flavio (generated)">
+        <addNotNullConstraint columnName="status"
+                              tableName="transactions"/>
+    </changeSet>
+
+
+    <changeSet id="1667046293204-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="products">
+            <column name="image"
+                    type="bytea"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1667048235669-1"
+               author="Luiz Flavio (generated)">
+        <dropColumn columnName="image"
+                    tableName="products"/>
+    </changeSet>
+    <changeSet id="1667048235669-2"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="products">
+            <column name="image"
+                    type="text"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1667050073937-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="events">
+            <column name="image"
+                    type="text"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1667050073937-2"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="users">
+            <column name="user_image"
+                    type="text"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

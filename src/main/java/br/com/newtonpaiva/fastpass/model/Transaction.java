@@ -1,5 +1,6 @@
 package br.com.newtonpaiva.fastpass.model;
 
+import br.com.newtonpaiva.fastpass.enums.TransactionStatus;
 import br.com.newtonpaiva.fastpass.generic.GenericEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,6 +34,10 @@ public class Transaction implements Serializable, GenericEntity {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private TransactionStatus status;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
