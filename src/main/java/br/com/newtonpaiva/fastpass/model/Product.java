@@ -29,4 +29,7 @@ public class Product implements Serializable, GenericEntity {
 
     @Column(nullable = false)
     private Boolean active;
+
+    @Column(columnDefinition = "text")
+    private String image;
 }

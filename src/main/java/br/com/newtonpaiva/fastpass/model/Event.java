@@ -44,4 +44,7 @@ public class Event implements Serializable, GenericEntity {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "event_status", nullable = false)
     private EventStatus eventStatus;
+
+    @Column(columnDefinition = "text")
+    private String image;
 }

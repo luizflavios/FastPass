@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 public class EventResponseDTO {
+    
     private Integer id;
     private String name;
     private String description;
