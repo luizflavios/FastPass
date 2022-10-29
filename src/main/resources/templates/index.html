@@ -241,7 +241,7 @@
                                                     <div class="align-middle m-b-30"
                                                          th:each="event : ${eventResponseDTO}">
                                                         <img alt="user image" class=" img-50 align-top m-r-15"
-                                                             src="assets/images/avatar-blank.jpg">
+                                                             th:src="${event.image}">
                                                         <div class="d-inline-block">
                                                             <h6><label th:text="${event.name}"></label></h6>
                                                             <p class="text-muted m-b-0"><label
