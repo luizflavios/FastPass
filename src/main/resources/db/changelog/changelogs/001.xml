@@ -295,4 +295,41 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="1668017710918-1"
+               author="Luiz Flavio (generated)">
+        <createTable tableName="emails">
+            <column autoIncrement="true"
+                    name="id"
+                    type="INT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_emails"/>
+            </column>
+            <column name="user_id"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_type"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_status"
+                    type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_time"
+                    type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1668017710918-2"
+               author="Luiz Flavio (generated)">
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="emails"
+                                 constraintName="FK_EMAILS_ON_USER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
 </databaseChangeLog>

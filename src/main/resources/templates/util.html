@@ -78,7 +78,10 @@
         <div class="">
             <div class="main-menu-header">
                 <img alt="User-Profile-Image" class="img-80 img-radius"
-                     th:src="${userResponseDTO.userImage}">
+                     th:if="${userResponseDTO.userImage} != null" th:src="${userResponseDTO.userImage}"/>
+                <img alt="User-Profile-Image" class="img-80 img-radius"
+                     src="assets/images/avatar-blank.jpg"
+                     th:unless="${userResponseDTO.userImage} != null"/>
                 <div class="user-details">
                     <span id="more-details"><label th:text="${userResponseDTO.fullName}"></label></span>
                 </div>
@@ -219,7 +222,12 @@
 
                 <li class="user-profile header-notification">
                     <a class="waves-effect waves-light" href="#!">
-                        <img alt="User-Profile-Image" class="img-radius" th:src="${userResponseDTO.userImage}">
+                        <img alt="User-Profile-Image" class="img-radius"
+                             th:if="${userResponseDTO.userImage} != null" th:src="${userResponseDTO.userImage}"/>
+                        <img alt="User-Profile-Image" class="img-radius"
+                             src="assets/images/avatar-blank.jpg"
+                             th:unless="${userResponseDTO.userImage} != null"/>
+
                         <span><label th:text="${userResponseDTO.fullName}"></label></span>
                         <i class="ti-angle-down"></i>
                     </a>

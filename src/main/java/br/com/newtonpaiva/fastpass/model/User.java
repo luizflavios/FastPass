@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 public class User implements Serializable, GenericEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
@@ -30,7 +31,6 @@ public class User implements Serializable, GenericEntity {
     private Boolean enabled;
     @Column(columnDefinition = "text")
     private String userImage;
-
     @Column(nullable = false, name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
