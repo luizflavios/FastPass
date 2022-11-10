@@ -35,6 +35,12 @@ public class Event implements Serializable, GenericEntity {
     @Column(nullable = false, name = "owner_phone_number")
     private String ownerPhoneNumber;
 
+    @Column(nullable = false, name = "ticket_value")
+    private Double ticketValue;
+
+    @Column(nullable = false, name = "place_capacity")
+    private Integer placeCapacity;
+
     @Column(nullable = false, name = "date_time")
     private LocalDateTime dateTime;
 

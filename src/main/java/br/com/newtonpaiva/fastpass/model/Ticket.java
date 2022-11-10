@@ -29,9 +29,6 @@ public class Ticket implements Serializable, GenericEntity {
     @JoinColumn(name = "payment_method_id")
     private PaymentMethod paymentMethod;
 
-    @Column(nullable = false, updatable = false)
-    private String number;
-
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "ticket_status", nullable = false)
     private TicketStatus ticketStatus;

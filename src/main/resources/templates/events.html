@@ -55,28 +55,29 @@
                                                                     <th>Evento</th>
                                                                     <th>Data Evento</th>
                                                                     <th>Valor (R$)</th>
-                                                                    <th class="text-right">Status Compra</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr>
+                                                                <tr th:each="ticket : ${futureEventResponseDTO}">
                                                                     <td>
                                                                         <div class="d-inline-block align-middle">
                                                                             <img alt="user image"
                                                                                  class="img-40 align-top m-r-15"
-                                                                                 src="assets/images/avatar-blank.jpg">
+                                                                                 th:src="${ticket.event.image}">
                                                                             <div class="d-inline-block">
-                                                                                <h6>Festival Planeta
-                                                                                    Brasil 2022</h6>
+                                                                                <h6><label
+                                                                                        th:text="${ticket.event.name}"></label>
+                                                                                </h6>
                                                                                 <p class="text-muted m-b-0">
-                                                                                    Festival a sua cara</p>
+                                                                                    <label th:text="${ticket.event.description}"></label>
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td>24/09/2022</td>
-                                                                    <td>R$ 12,00</td>
-                                                                    <td class="text-right"><label
-                                                                            class="label label-success">Aprovada</label>
+                                                                    <td><label th:text="${ticket.event.date}"></label>
+                                                                    </td>
+                                                                    <td>R$ <label
+                                                                            th:text="${ticket.event.ticketValue}"></label>
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>
@@ -100,15 +101,138 @@
                                                 <div class="card-header">
                                                     <h5>Comprar Tickets</h5>
                                                 </div>
-                                                <div class="col-md-7" style="margin-top: 10px;">
-                                                    <div class="card">
-                                                        <div class="card-block">
-
+                                                <div class="card-block accordion-block">
+                                                    <div aria-multiselectable="true" id="accordion"
+                                                         role="tablist">
+                                                        <div class="accordion-panel"
+                                                             th:if="${#lists.size(newerEventResponseDTO)} > 0">
+                                                            <!--   ${newerEventResponseDTO[5]} != null-->
+                                                            <div class="accordion-heading" id="headingOne"
+                                                                 role="tab">
+                                                                <h3 class="card-title accordion-title">
+                                                                    <a aria-controls="collapseOne"
+                                                                       aria-expanded="true"
+                                                                       class="accordion-msg waves-effect waves-dark"
+                                                                       data-parent="#accordion"
+                                                                       data-toggle="collapse"
+                                                                       href="#collapseOne">
+                                                                        <label th:text="${newerEventResponseDTO[0].name} +' - R$ '+ ${newerEventResponseDTO[0].ticketValue}"></label>
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                            <div aria-labelledby="headingOne"
+                                                                 class="panel-collapse collapse in"
+                                                                 id="collapseOne" role="tabpanel">
+                                                                <div class="accordion-content accordion-desc">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <label th:text="${newerEventResponseDTO[0].description}"></label>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <label th:text="${newerEventResponseDTO[0].ownerPhoneNumber}"></label>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button class="btn waves-effect waves-light btn-grd-success"
+                                                                                    data-target="#exampleModalCenter"
+                                                                                    data-toggle="modal"
+                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[0].id}]])">
+                                                                                Comprar
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="card">
-                                                        <div class="card-block">
-
+                                                        <div class="accordion-panel"
+                                                             th:unless="${#lists.size(newerEventResponseDTO)} > 0">
+                                                            <div class="alert alert-light" role="alert">
+                                                                <h3>Não existem novos eventos no momento.</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="accordion-panel"
+                                                             th:if="${#lists.size(newerEventResponseDTO)} > 1">
+                                                            <div class="accordion-heading" id="headingTwo"
+                                                                 role="tab">
+                                                                <h3 class="card-title accordion-title">
+                                                                    <a aria-controls="collapseTwo"
+                                                                       aria-expanded="false"
+                                                                       class="accordion-msg waves-effect waves-dark"
+                                                                       data-parent="#accordion"
+                                                                       data-toggle="collapse"
+                                                                       href="#collapseTwo">
+                                                                        <label th:text="${newerEventResponseDTO[1].name} +' - R$ '+ ${newerEventResponseDTO[1].ticketValue}"></label>
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                            <div aria-labelledby="headingTwo"
+                                                                 class="panel-collapse collapse" id="collapseTwo"
+                                                                 role="tabpanel">
+                                                                <div class="accordion-content accordion-desc">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <label th:text="${newerEventResponseDTO[1].description}"></label>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <label th:text="${newerEventResponseDTO[1].ownerPhoneNumber}"></label>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button class="btn waves-effect waves-light btn-grd-success"
+                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[1].id}]])">
+                                                                                >
+                                                                                Comprar
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="accordion-panel"
+                                                             th:if="${#lists.size(newerEventResponseDTO)} > 2">
+                                                            <div class=" accordion-heading" id="headingThree"
+                                                                 role="tab">
+                                                                <h3 class="card-title accordion-title">
+                                                                    <a aria-controls="collapseThree"
+                                                                       aria-expanded="false"
+                                                                       class="accordion-msg waves-effect waves-dark"
+                                                                       data-parent="#accordion"
+                                                                       data-toggle="collapse"
+                                                                       href="#collapseThree">
+                                                                        <label th:text="${newerEventResponseDTO[2].name} +' - R$ '+ ${newerEventResponseDTO[2].ticketValue}"></label>
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                            <div aria-labelledby="headingThree"
+                                                                 class="panel-collapse collapse" id="collapseThree"
+                                                                 role="tabpanel">
+                                                                <div class="accordion-content accordion-desc">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <label th:text="${newerEventResponseDTO[2].description}"></label>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <label th:text="${newerEventResponseDTO[2].ownerPhoneNumber}"></label>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button class="btn waves-effect waves-light btn-grd-success"
+                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[2].id}]])">
+                                                                                Comprar
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,21 +255,25 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr>
+                                                                <tr th:each="ticket : ${pastEventResponseDTO}">
                                                                     <td>
                                                                         <div class="d-inline-block align-middle">
                                                                             <img alt="user image"
                                                                                  class="img-40 align-top m-r-15"
-                                                                                 src="assets/images/avatar-blank.jpg">
+                                                                                 th:src="${ticket.event.image}">
                                                                             <div class="d-inline-block">
-                                                                                <h6>Festival Planeta
-                                                                                    Brasil 2022</h6>
+                                                                                <h6><label
+                                                                                        th:text="${ticket.event.name}"></label>
+                                                                                </h6>
                                                                                 <p class="text-muted m-b-0">
-                                                                                    Festival a sua cara</p>
+                                                                                    <label
+                                                                                            th:text="${ticket.event.description}"></label>
+                                                                                </p>
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td>24/09/2022</td>
+                                                                    <td><label
+                                                                            th:text="${ticket.event.date}"></label></td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -178,6 +306,32 @@
         </div>
     </div>
 </div>
+
+
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter"
+     role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Pagamento via Pix</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" onclick="reloadPage()"
+                        type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="display: flex;">
+                <div style="align-items: center; justify-content:center">
+                    <img alt="qrcode"
+                         class="align-top m-r-15"
+                         id="qrCode"
+                         style="width: 90%; max-width:400px; margin-left: 30px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Warning Section Starts -->
 <!-- Older IE warning message -->
 <!--[if lt IE 10]>
@@ -245,6 +399,63 @@
 <!-- custom js -->
 <script src="assets/pages/dashboard/custom-dashboard.js" type="text/javascript"></script>
 <script src="assets/js/script.js " type="text/javascript"></script>
+
+<script>
+
+    function reloadPage() {
+        window.location.reload();
+    }
+
+    function ajaxQrCode(id) {
+         $.ajax({
+            url: "/events/qrCode/" + id,
+            type: "GET",
+            //mimeType: "text/plain; charset=x-user-defined"
+        }).done(function( data, textStatus, jqXHR ) {
+            $("#qrCode").attr('src', data);
+        }).fail(function( jqXHR, textStatus, errorThrown ) {
+            alert("fail: " + errorThrown);
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 </body>
 
 </html>

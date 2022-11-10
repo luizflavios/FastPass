@@ -1,6 +1,6 @@
 package br.com.newtonpaiva.fastpass.controller;
 
-import br.com.newtonpaiva.fastpass.dto.EventResponseDTO;
+import br.com.newtonpaiva.fastpass.dto.TicketResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.TransactionResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.PageConstants;
@@ -44,7 +44,7 @@ public class IndexController {
         modelAndView.addObject("userResponseDTO", userResponseDTO);
         modelAndView.addObject("eventResponseDTO", genericMapper.toCollectionDTO
                 (eventService.futureEvents(userResponseDTO),
-                        EventResponseDTO.class));
+                        TicketResponseDTO.class));
         modelAndView.addObject("dashboardResponseDTO", indexService.setDashboardPersonalInfo(userResponseDTO));
         modelAndView.addObject("transactionResponseDTO", genericMapper.toCollectionDTO
                 (transactionService.lastTransactions(userResponseDTO), TransactionResponseDTO.class));

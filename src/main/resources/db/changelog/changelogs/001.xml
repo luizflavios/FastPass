@@ -332,4 +332,73 @@
                                  referencedTableName="users"/>
     </changeSet>
 
+    <changeSet id="1668086943399-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="tickets">
+            <column name="value"
+                    type="DOUBLE"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1668086943399-2"
+               author="Luiz Flavio (generated)">
+        <sql>
+            update tickets set value = 0.0 where value is null;
+        </sql>
+    </changeSet>
+    <changeSet id="1668086943399-3"
+               author="Luiz Flavio (generated)">
+        <addNotNullConstraint columnName="value"
+                              tableName="tickets"/>
+    </changeSet>
+
+
+    <changeSet id="1668104635707-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="events">
+            <column name="ticket_value"
+                    type="DOUBLE"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1668104635707-2"
+               author="Luiz Flavio (generated)">
+        <sql>
+            update events set ticket_value = 0.0 where ticket_value is null;
+        </sql>
+    </changeSet>
+    <changeSet id="1668104635707-3"
+               author="Luiz Flavio (generated)">
+        <addNotNullConstraint columnName="ticket_value"
+                              tableName="events"/>
+    </changeSet>
+    <changeSet id="1668104635707-4"
+               author="Luiz Flavio (generated)">
+        <dropColumn columnName="value"
+                    tableName="tickets"/>
+    </changeSet>
+
+    <changeSet id="1668105180859-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="events">
+            <column name="place_capacity"
+                    type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1668105180859-2"
+               author="Luiz Flavio (generated)">
+        <sql>
+            update events set place_capacity = 1000 where place_capacity is null;
+        </sql>
+    </changeSet>
+    <changeSet id="1668105180859-3"
+               author="Luiz Flavio (generated)">
+        <addNotNullConstraint columnName="place_capacity"
+                              tableName="events"/>
+    </changeSet>
+    <changeSet id="1668105180859-4"
+               author="Luiz Flavio (generated)">
+        <dropColumn columnName="number"
+                    tableName="tickets"/>
+    </changeSet>
+
+
 </databaseChangeLog>

@@ -18,4 +18,5 @@ public class FastPassUtil {
         return (UserResponseDTO) session.getAttribute("user");
     }
 
+
 }
