@@ -70,7 +70,6 @@ public class EventService {
                 .toList();
     }
 
-
     public String generatePaymentQrCode(Integer id) {
         int imageSize = 400;
         try {

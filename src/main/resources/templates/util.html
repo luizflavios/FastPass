@@ -99,22 +99,13 @@
         </ul>
         <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus créditos</div>
         <ul class="pcoded-item pcoded-left-item">
-            <!--            <li>-->
-            <!--                <a class="waves-effect waves-dark" href="form-elements-component.html">-->
-            <!--                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>-->
-            <!--                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form-->
-            <!--                                            Components</span>-->
-            <!--                    <span class="pcoded-mcaret"></span>-->
-            <!--                </a>-->
-            <!--            </li>-->
-            <!--            <li>-->
-            <!--                <a class="waves-effect waves-dark" href="bs-basic-table.html">-->
-            <!--                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>-->
-            <!--                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic-->
-            <!--                                            Table</span>-->
-            <!--                    <span class="pcoded-mcaret"></span>-->
-            <!--                </a>-->
-            <!--            </li>-->
+            <li>
+                <a class="waves-effect waves-dark" th:href="@{/transactions}">
+                    <span class="pcoded-micon"><i class="ti-shopping-cart"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Minhas Transações</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
 
         </ul>
 
@@ -131,51 +122,13 @@
 
         <div class="pcoded-navigation-label" data-i18n="nav.category.other">Minhas recargas</div>
         <ul class="pcoded-item pcoded-left-item">
-            <!--            <li class="pcoded-hasmenu ">-->
-            <!--                <a class="waves-effect waves-dark" href="javascript:void(0)">-->
-            <!--                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>-->
-            <!--                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>-->
-            <!--                    <span class="pcoded-mcaret"></span>-->
-            <!--                </a>-->
-            <!--                <ul class="pcoded-submenu">-->
-            <!--                    <li class="">-->
-            <!--                        <a class="waves-effect waves-dark" href="javascript:void(0)">-->
-            <!--                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>-->
-            <!--                            <span class="pcoded-mtext"-->
-            <!--                                  data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>-->
-            <!--                            <span class="pcoded-mcaret"></span>-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                    <li class="pcoded-hasmenu ">-->
-            <!--                        <a class="waves-effect waves-dark" href="javascript:void(0)">-->
-            <!--                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>-->
-            <!--                            <span class="pcoded-mtext"-->
-            <!--                                  data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>-->
-            <!--                            <span class="pcoded-mcaret"></span>-->
-            <!--                        </a>-->
-            <!--                        <ul class="pcoded-submenu">-->
-            <!--                            <li class="">-->
-            <!--                                <a class="waves-effect waves-dark" href="javascript:void(0)">-->
-            <!--                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>-->
-            <!--                                    <span class="pcoded-mtext"-->
-            <!--                                          data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu-->
-            <!--                                                            Level 3.1</span>-->
-            <!--                                    <span class="pcoded-mcaret"></span>-->
-            <!--                                </a>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </li>-->
-            <!--                    <li class="">-->
-            <!--                        <a class="waves-effect waves-dark" href="javascript:void(0)">-->
-            <!--                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>-->
-            <!--                            <span class="pcoded-mtext"-->
-            <!--                                  data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>-->
-            <!--                            <span class="pcoded-mcaret"></span>-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-
-            <!--                </ul>-->
-            <!--            </li>-->
+            <li>
+                <a class="waves-effect waves-dark" th:href="@{/recharges}">
+                    <span class="pcoded-micon"><i class="ti-money"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Minhas Recargas</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
