@@ -1,17 +1,39 @@
 # Fast Pass
 
-## _O aplicativo que traz mais facilidade no seu momento de lazer_
+## O aplicativo que traz mais facilidade no seu momento de lazer!
 
-Swagger documentation is found via the url: http://localhost:8080/api/swagger-ui/#/.
+### Tecnologias utilizadas
 
-- Type some Markdown on the left
-- See HTML in the right
-- ✨Magic ✨
+- Java 17 (Oracle)
+- Spring Boot 2.7.5
+- Postgres
+- Liquibase Migrations
+- Thymeleaf
+- Bootstrap 4
+- #### Arquitetura MVC - Server Side Render
 
-## Features
+### Features disponíveis.
 
-- Import a HTML file and watch it magically convert to Markdown
-- Drag and drop images (requires your Dropbox account be linked)
-- Import and save files from GitHub, Dropbox, Google Drive and One Drive
-- Drag and drop markdown and HTML files into Dillinger
-- Export documents as Markdown, HTML and PDF
+- Fluxo Completo de Login
+    - Cadastro
+    - Recuperação de Senha
+    - Ativação da Conta com Código
+
+
+- Resumo das informações principais em Dashboard
+
+
+- Gestão completa de seus eventos
+    - Eventos Futuros
+    - Eventos Passados
+    - Compra de Novos Eventos
+
+
+- Gestão completa de suas recargas
+
+
+- Gestão completa de seu consumo de créditos
+
+
+
+

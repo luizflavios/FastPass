@@ -11,6 +11,8 @@ public class EventResponseDTO {
     private Integer id;
     private String name;
     private String description;
+    private String ownerPhoneNumber;
+    private Double ticketValue;
     private LocalDateTime dateTime;
     private String date;
     private String image;
