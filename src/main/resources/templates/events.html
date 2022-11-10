@@ -185,8 +185,9 @@
                                                                         </div>
                                                                         <div class="col-sm-2">
                                                                             <button class="btn waves-effect waves-light btn-grd-success"
+                                                                                    data-target="#exampleModalCenter"
+                                                                                    data-toggle="modal"
                                                                                     th:onclick="ajaxQrCode([[${newerEventResponseDTO[1].id}]])">
-                                                                                >
                                                                                 Comprar
                                                                             </button>
                                                                         </div>
@@ -226,6 +227,8 @@
                                                                         </div>
                                                                         <div class="col-sm-2">
                                                                             <button class="btn waves-effect waves-light btn-grd-success"
+                                                                                    data-target="#exampleModalCenter"
+                                                                                    data-toggle="modal"
                                                                                     th:onclick="ajaxQrCode([[${newerEventResponseDTO[2].id}]])">
                                                                                 Comprar
                                                                             </button>
@@ -410,13 +413,14 @@
          $.ajax({
             url: "/events/qrCode/" + id,
             type: "GET",
-            //mimeType: "text/plain; charset=x-user-defined"
         }).done(function( data, textStatus, jqXHR ) {
             $("#qrCode").attr('src', data);
         }).fail(function( jqXHR, textStatus, errorThrown ) {
             alert("fail: " + errorThrown);
         });
     }
+
+
 
 
 
