@@ -1,5 +1,6 @@
 package br.com.newtonpaiva.fastpass.service;
 
+import br.com.newtonpaiva.fastpass.dto.QrCodeResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.EventStatus;
 import br.com.newtonpaiva.fastpass.enums.TicketStatus;
@@ -70,18 +71,24 @@ public class EventService {
                 .toList();
     }
 
-    public String generatePaymentQrCode(Integer id) {
+    public QrCodeResponseDTO generatePaymentQrCode(Integer id) {
         int imageSize = 400;
         try {
+
             String url = String.format("%s/events/buy/%s", apiBaseUrl, id.toString());
             BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE,
                     imageSize, imageSize);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             MatrixToImageWriter.writeToStream(matrix, "jpeg", bos);
-            return DATA_FILE_JPEG_BASE_64 + Base64.getEncoder().encodeToString(bos.toByteArray()); // base64 encode
+
+            return QrCodeResponseDTO.builder()
+                    .qrCode(DATA_FILE_JPEG_BASE_64 + Base64.getEncoder().encodeToString(bos.toByteArray()))
+                    .eventId(id)
+                    .build();
+
         } catch (WriterException | IOException e) {
             e.printStackTrace();
-            return e.getMessage();
+            return null;
         }
     }
 
@@ -97,5 +104,11 @@ public class EventService {
         ticketRepository.saveAndFlush(ticket);
         eventRepository.saveAndFlush(event);
         return PARABENS_PELA_COMPRA;
+    }
+
+    public String verifyPaymentMessage(UserResponseDTO loggedUser, Integer eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
+        PaymentMethod paymentMethod = paymentMethodRepository.findByUserAndActive(loggedUser.getId());
+        return ticketRepository.existsByEventAndPaymentMethod(event, paymentMethod).toString();
     }
 }
