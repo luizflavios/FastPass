@@ -30,9 +30,13 @@
 
 
 - Gestão completa de suas recargas
+    - Saldo atual da carteira
+    - Saldo total investido
+    - Métricas de compra e venda
+    - Compra de novas recargas
+    - Histórico de ultimas recargas
 
-
-- Gestão completa de seu consumo de créditos
+- Gestão completa de seu consumo de produtos
 
 
 
