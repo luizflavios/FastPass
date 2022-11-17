@@ -1,6 +1,7 @@
 package br.com.newtonpaiva.fastpass.controller;
 
 import br.com.newtonpaiva.fastpass.dto.EventResponseDTO;
+import br.com.newtonpaiva.fastpass.dto.QrCodeResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.TicketResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.PageConstants;
 import br.com.newtonpaiva.fastpass.generic.GenericMapper;
@@ -12,9 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/events")
@@ -23,6 +23,7 @@ public class EventController {
     public static final String USER_RESPONSE_DTO = "userResponseDTO";
     public static final String FUTURE_EVENT_RESPONSE_DTO = "futureEventResponseDTO";
     public static final String PAST_EVENT_RESPONSE_DTO = "pastEventResponseDTO";
+    public static final String PAYMENT_STATUS = "paymentStatus";
     private static final String NEWER_EVENT_RESPONSE_DTO = "newerEventResponseDTO";
     @Autowired
     private FastPassUtil fastPassUtil;
@@ -32,21 +33,26 @@ public class EventController {
     private GenericMapper genericMapper;
 
     @GetMapping
-    public ModelAndView loadEventPage(HttpSession session) {
+    public ModelAndView loadEventPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(PageConstants.EVENT_FILE);
         setNativePageObjects(modelAndView);
         return modelAndView;
     }
 
-    @GetMapping("/qrCode/{id}")
-    public ResponseEntity<String> generateQrCode(@PathVariable Integer id) {
-        return ResponseEntity.ok(eventService.generatePaymentQrCode(id));
+    @GetMapping("/verify-payment")
+    public ResponseEntity<String> loadEventPageWithPaymentVerified(@RequestParam Integer eventId) {
+        return ResponseEntity.ok(eventService.verifyPaymentMessage(fastPassUtil.getLoggedUser(), eventId));
     }
 
-    @GetMapping("/buy/{id}")
-    public ResponseEntity<String> buyTicket(@PathVariable Integer id) {
-        return ResponseEntity.ok(eventService.buyTicket(id, fastPassUtil.getLoggedUser()));
+    @GetMapping("/qrCode/{id}")
+    public ResponseEntity<QrCodeResponseDTO> generateQrCode(@PathVariable Integer id) {
+        return ResponseEntity.ok(eventService.generatePaymentQrCode(id, fastPassUtil.getLoggedUser()));
+    }
+
+    @GetMapping("/buy/{userId}/{eventId}")
+    public ResponseEntity<String> buyTicket(@PathVariable Integer userId, @PathVariable Integer eventId) {
+        return ResponseEntity.ok(eventService.buyTicket(eventId, userId));
     }
 
     private void setNativePageObjects(ModelAndView modelAndView) {

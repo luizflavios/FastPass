@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,10 +29,14 @@ public class User implements Serializable, GenericEntity {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    private String code;
+    @Column(nullable = false)
     private Boolean enabled;
     @Column(columnDefinition = "text")
     private String userImage;
     @Column(nullable = false, name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Card> cards;
 }

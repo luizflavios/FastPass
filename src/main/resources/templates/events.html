@@ -139,7 +139,7 @@
                                                                             <button class="btn waves-effect waves-light btn-grd-success"
                                                                                     data-target="#exampleModalCenter"
                                                                                     data-toggle="modal"
-                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[0].id}]])">
+                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[0].id}]], false)">
                                                                                 Comprar
                                                                             </button>
                                                                         </div>
@@ -187,7 +187,7 @@
                                                                             <button class="btn waves-effect waves-light btn-grd-success"
                                                                                     data-target="#exampleModalCenter"
                                                                                     data-toggle="modal"
-                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[1].id}]])">
+                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[1].id}]], false)">
                                                                                 Comprar
                                                                             </button>
                                                                         </div>
@@ -229,7 +229,7 @@
                                                                             <button class="btn waves-effect waves-light btn-grd-success"
                                                                                     data-target="#exampleModalCenter"
                                                                                     data-toggle="modal"
-                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[2].id}]])">
+                                                                                    th:onclick="ajaxQrCode([[${newerEventResponseDTO[2].id}]], false)">
                                                                                 Comprar
                                                                             </button>
                                                                         </div>
@@ -250,7 +250,7 @@
                                                     <div class="col-xl-12 col-md-12">
 
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover">
+                                                            <table class="table table-hover table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Evento</th>
@@ -317,18 +317,61 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Pagamento via Pix</h5>
-                <button aria-label="Close" class="close" data-dismiss="modal" onclick="reloadPage()"
+                <button aria-label="Close" class="close" data-dismiss="modal"
                         type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="display: flex;">
-                <div style="align-items: center; justify-content:center">
+                <div id="modalContentPix" style="align-items: center; justify-content:center; min-width: 400px;">
+
                     <img alt="qrcode"
                          class="align-top m-r-15"
                          id="qrCode"
                          style="width: 90%; max-width:400px; margin-left: 30px;">
+
+                    <input hidden id="eventId" name="eventId"/>
+
+                    <div class="progress" hidden id="spinPix" style="margin-left: 30px">
+                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0"
+                             class="progress-bar progress-bar-striped progress-bar-animated"
+                             id="spinPixBar" role="progressbar"
+                             style="width: 0%"></div>
+                    </div>
+
+                    <div class="col-sm-12" hidden="true" id="pagamento-sucesso">
+                        <div class="alert alert-success alert-dismissible" role="alert"
+                             style="margin-top:20px">
+                            O Pagamento foi realizado com sucesso!
+                            <button aria-label="Close" class="close" data-dismiss="alert"
+                                    type="button">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12" hidden="true" id="pagamento-erro">
+                        <div class="alert alert-danger alert-dismissible" role="alert"
+                             style="margin-top:20px">
+                            O Pagamento não foi realizado com sucesso! Gentileza
+                            verificar saldo e/ou se o pix foi realizado.
+                            <button aria-label="Close" class="close"
+                                    data-dismiss="alert" type="button">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
+            <div class="modal-footer" id="modalCompraFooter">
+                <button class="btn btn-success" id="btnConfirmaCompra" onclick="reloadPage()" type="button">
+                    Confirmar Compra
+                </button>
+                <button class="btn btn-primary" hidden="true" id="btnTentaDenovoCompra"
+                        onclick="ajaxQrCode(0, true)" type="button">
+                    Tentar Novamente
+                </button>
             </div>
         </div>
     </div>
@@ -406,53 +449,82 @@
 <script>
 
     function reloadPage() {
-        window.location.reload();
+
+       var qrCode = document.getElementById('qrCode');
+       qrCode.setAttribute('hidden', 'true');
+       var spin = document.getElementById('spinPix');
+       spin.removeAttribute("hidden");
+
+       var spinBar = document.getElementById('spinPixBar');
+
+       var eventId = document.getElementById('eventId').value;
+
+
+
+       sleep(500).then(() => { spinBar.style.width = '10%';
+            sleep(500).then(() => { spinBar.style.width = '25%';
+                sleep(500).then(() => { spinBar.style.width = '50%';
+                    sleep(500).then(() => { spinBar.style.width = '75%';
+                        sleep(500).then(() => { spinBar.style.width = '100%';
+                            sleep(500).then(() => { window.onload = ajaxPaymentVerified(eventId); });
+                        });
+                    });
+                });
+            });
+        });
+
     }
 
-    function ajaxQrCode(id) {
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function ajaxPaymentVerified(id) {
          $.ajax({
-            url: "/events/qrCode/" + id,
+            url: "/events/verify-payment?eventId=" + id,
             type: "GET",
         }).done(function( data, textStatus, jqXHR ) {
-            $("#qrCode").attr('src', data);
+
+            var spin = document.getElementById('spinPix');
+            spin.setAttribute('hidden', 'true');
+
+            if (data === 'true') {
+
+               $("#modalCompraFooter").attr('hidden', true);
+               $("#pagamento-sucesso").attr('hidden', false);
+               sleep(2000).then(() => { window.location.reload(); });
+
+            } else {
+               $("#btnConfirmaCompra").attr('hidden', true);
+               $("#btnTentaDenovoCompra").attr('hidden', false);
+               $("#pagamento-erro").attr('hidden', false);
+            }
+
         }).fail(function( jqXHR, textStatus, errorThrown ) {
-            alert("fail: " + errorThrown);
+            alert("fail pagamento: " + errorThrown);
         });
     }
 
+        function ajaxQrCode(id, disable) {
 
+            if (disable) {
+                $("#pagamento-erro").attr('hidden', true);
+                $("#qrCode").attr('hidden', false);
+                $("#btnConfirmaCompra").attr('hidden', false);
+                $("#btnTentaDenovoCompra").attr('hidden', true);
+                id = document.getElementById('eventId').value;
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+             $.ajax({
+                url: "/events/qrCode/" + id,
+                type: "GET",
+            }).done(function( data, textStatus, jqXHR ) {
+                $("#qrCode").attr('src', data.qrCode);
+                $("#eventId").val(data.eventId);
+            }).fail(function( jqXHR, textStatus, errorThrown ) {
+                alert("fail qrcode: " + errorThrown);
+            });
+    }
 
 
 

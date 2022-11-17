@@ -1,8 +1,10 @@
 package br.com.newtonpaiva.fastpass.service;
 
+import br.com.newtonpaiva.fastpass.dto.QrCodeResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.EventStatus;
 import br.com.newtonpaiva.fastpass.enums.TicketStatus;
+import br.com.newtonpaiva.fastpass.model.Card;
 import br.com.newtonpaiva.fastpass.model.Event;
 import br.com.newtonpaiva.fastpass.model.PaymentMethod;
 import br.com.newtonpaiva.fastpass.model.Ticket;
@@ -10,30 +12,22 @@ import br.com.newtonpaiva.fastpass.repository.CardRepository;
 import br.com.newtonpaiva.fastpass.repository.EventRepository;
 import br.com.newtonpaiva.fastpass.repository.PaymentMethodRepository;
 import br.com.newtonpaiva.fastpass.repository.TicketRepository;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
+
+import static br.com.newtonpaiva.fastpass.util.QrCodeGenerator.qrCodeEventBuilder;
 
 @Service
 public class EventService {
 
-    public static final String DATA_FILE_JPEG_BASE_64 = "data:@file/jpeg;base64,";
     private static final String PARABENS_PELA_COMPRA = "<h1>PARABENS PELA SUA COMPRA</h1>";
 
-    @Value("${api.base.url}")
-    private String apiBaseUrl;
+    private static final DecimalFormat decfor = new DecimalFormat("0.00");
 
     @Autowired
     private EventRepository eventRepository;
@@ -70,32 +64,60 @@ public class EventService {
                 .toList();
     }
 
-    public String generatePaymentQrCode(Integer id) {
-        int imageSize = 400;
-        try {
-            String url = String.format("%s/events/buy/%s", apiBaseUrl, id.toString());
-            BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE,
-                    imageSize, imageSize);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(matrix, "jpeg", bos);
-            return DATA_FILE_JPEG_BASE_64 + Base64.getEncoder().encodeToString(bos.toByteArray()); // base64 encode
-        } catch (WriterException | IOException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        }
+    public QrCodeResponseDTO generatePaymentQrCode(Integer id, UserResponseDTO loggedUser) {
+        return qrCodeEventBuilder(id, loggedUser.getId());
     }
 
-    public String buyTicket(Integer id, UserResponseDTO loggedUser) {
+    public String buyTicket(Integer id, Integer userId) {
+
         Event event = eventRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        PaymentMethod paymentMethod = paymentMethodRepository.findByUserAndActive(userId);
+        Card card = recoverCardByPaymentMethod(paymentMethod);
+
+        String itsClear = checkPaymentRequiriments(event, card);
+        if (!itsClear.equalsIgnoreCase("")) {
+            return itsClear;
+        }
+
         event.setPlaceCapacity(event.getPlaceCapacity() - 1);
-        PaymentMethod paymentMethod = paymentMethodRepository.findByUserAndActive(loggedUser.getId());
+
         Ticket ticket = Ticket.builder()
                 .event(event)
                 .paymentMethod(paymentMethod)
                 .ticketStatus(TicketStatus.AVAILABLE)
                 .build();
         ticketRepository.saveAndFlush(ticket);
+
         eventRepository.saveAndFlush(event);
+
+        card.setBalance(card.getBalance() - Double.parseDouble(decfor.format(event.getTicketValue())));
+        cardRepository.saveAndFlush(card);
         return PARABENS_PELA_COMPRA;
+    }
+
+    private Card recoverCardByPaymentMethod(PaymentMethod paymentMethod) {
+        return paymentMethod.getUser().getCards().stream().filter(card ->
+                card.getActive().equals(Boolean.TRUE)).findFirst().orElseThrow(EntityNotFoundException::new);
+    }
+
+    private String checkPaymentRequiriments(Event event, Card card) {
+
+        String error = "";
+
+        if (event.getPlaceCapacity() == 0) {
+            error = "<h1>Não existem ingressos mais disponíveis para a compra!</h1>";
+        }
+
+        if (card.getBalance() < event.getTicketValue()) {
+            error = "<h1>Saldo insuficiente para compra!</h1>";
+        }
+
+        return error;
+    }
+
+    public String verifyPaymentMessage(UserResponseDTO loggedUser, Integer eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
+        PaymentMethod paymentMethod = paymentMethodRepository.findByUserAndActive(loggedUser.getId());
+        return ticketRepository.existsByEventAndPaymentMethod(event, paymentMethod).toString();
     }
 }

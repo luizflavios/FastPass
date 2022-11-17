@@ -17,8 +17,9 @@ public class PageConstants {
     public static final String RECHARGE_NAME = "Minhas Recargas";
     public static final String RECHARGE_REASON = "Aqui você pode fazer a gestão de suas recargas!";
     public static final String TRANSACTION_FILE = "transactions";
-    public static final Object TRANSACTION_NAME = "Minhas Transações";
-    public static final Object TRANSACTION_REASON = "Aqui você pode fazer a gestão do seu consumo";
+    public static final String TRANSACTION_NAME = "Minhas Transações";
+    public static final String TRANSACTION_REASON = "Aqui você pode fazer a gestão do seu consumo";
+    public static final String ACTIVE_ACCOUNT_FILE = "active-account";
 
     private PageConstants() {
 
