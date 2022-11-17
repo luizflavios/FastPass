@@ -16,4 +16,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     Long countByTicketStatusAndPaymentMethod(TicketStatus available, PaymentMethod paymentMethod);
 
     Boolean existsByEventAndPaymentMethod(Event event, PaymentMethod paymentMethod);
+
+    List<Ticket> findByPaymentMethod(PaymentMethod paymentMethod);
 }

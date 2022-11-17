@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class IndexService {
 
@@ -36,7 +38,7 @@ public class IndexService {
     }
 
     private Double balanceAvailable(UserResponseDTO loggedUser) {
-        Card card = cardRepository.findByUserAndActive(loggedUser.getId());
+        Card card = cardRepository.findByUserAndActive(loggedUser.getId()).orElseThrow(EntityNotFoundException::new);
         return card.getBalance();
     }
 
@@ -51,7 +53,7 @@ public class IndexService {
     }
 
     public Long rechargesPerformed(UserResponseDTO loggedUser) {
-        Card card = cardRepository.findByUserAndActive(loggedUser.getId());
+        Card card = cardRepository.findByUserAndActive(loggedUser.getId()).orElseThrow(EntityNotFoundException::new);
         return rechargeRepository.countByCard(card);
     }
 

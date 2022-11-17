@@ -12,30 +12,22 @@ import br.com.newtonpaiva.fastpass.repository.CardRepository;
 import br.com.newtonpaiva.fastpass.repository.EventRepository;
 import br.com.newtonpaiva.fastpass.repository.PaymentMethodRepository;
 import br.com.newtonpaiva.fastpass.repository.TicketRepository;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
+
+import static br.com.newtonpaiva.fastpass.util.QrCodeGenerator.qrCodeEventBuilder;
 
 @Service
 public class EventService {
 
-    public static final String DATA_FILE_JPEG_BASE_64 = "data:@file/jpeg;base64,";
     private static final String PARABENS_PELA_COMPRA = "<h1>PARABENS PELA SUA COMPRA</h1>";
 
-    @Value("${api.base.url}")
-    private String apiBaseUrl;
+    private static final DecimalFormat decfor = new DecimalFormat("0.00");
 
     @Autowired
     private EventRepository eventRepository;
@@ -72,31 +64,14 @@ public class EventService {
                 .toList();
     }
 
-    public QrCodeResponseDTO generatePaymentQrCode(Integer id) {
-        int imageSize = 400;
-        try {
-
-            String url = String.format("%s/events/buy/%s", apiBaseUrl, id.toString());
-            BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE,
-                    imageSize, imageSize);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(matrix, "jpeg", bos);
-
-            return QrCodeResponseDTO.builder()
-                    .qrCode(DATA_FILE_JPEG_BASE_64 + Base64.getEncoder().encodeToString(bos.toByteArray()))
-                    .eventId(id)
-                    .build();
-
-        } catch (WriterException | IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public QrCodeResponseDTO generatePaymentQrCode(Integer id, UserResponseDTO loggedUser) {
+        return qrCodeEventBuilder(id, loggedUser.getId());
     }
 
-    public String buyTicket(Integer id, UserResponseDTO loggedUser) {
+    public String buyTicket(Integer id, Integer userId) {
 
         Event event = eventRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        PaymentMethod paymentMethod = paymentMethodRepository.findByUserAndActive(loggedUser.getId());
+        PaymentMethod paymentMethod = paymentMethodRepository.findByUserAndActive(userId);
         Card card = recoverCardByPaymentMethod(paymentMethod);
 
         String itsClear = checkPaymentRequiriments(event, card);
@@ -115,7 +90,7 @@ public class EventService {
 
         eventRepository.saveAndFlush(event);
 
-        card.setBalance(card.getBalance() - event.getTicketValue());
+        card.setBalance(card.getBalance() - Double.parseDouble(decfor.format(event.getTicketValue())));
         cardRepository.saveAndFlush(card);
         return PARABENS_PELA_COMPRA;
     }

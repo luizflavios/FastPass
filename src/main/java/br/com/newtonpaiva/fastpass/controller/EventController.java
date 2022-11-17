@@ -47,12 +47,12 @@ public class EventController {
 
     @GetMapping("/qrCode/{id}")
     public ResponseEntity<QrCodeResponseDTO> generateQrCode(@PathVariable Integer id) {
-        return ResponseEntity.ok(eventService.generatePaymentQrCode(id));
+        return ResponseEntity.ok(eventService.generatePaymentQrCode(id, fastPassUtil.getLoggedUser()));
     }
 
-    @GetMapping("/buy/{id}")
-    public ResponseEntity<String> buyTicket(@PathVariable Integer id) {
-        return ResponseEntity.ok(eventService.buyTicket(id, fastPassUtil.getLoggedUser()));
+    @GetMapping("/buy/{userId}/{eventId}")
+    public ResponseEntity<String> buyTicket(@PathVariable Integer userId, @PathVariable Integer eventId) {
+        return ResponseEntity.ok(eventService.buyTicket(eventId, userId));
     }
 
     private void setNativePageObjects(ModelAndView modelAndView) {
