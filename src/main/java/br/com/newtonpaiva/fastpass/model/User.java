@@ -29,6 +29,8 @@ public class User implements Serializable, GenericEntity {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
+    private String code;
+    @Column(nullable = false)
     private Boolean enabled;
     @Column(columnDefinition = "text")
     private String userImage;

@@ -35,8 +35,8 @@ public class FilterConfig extends GenericFilterBean {
     }
 
     private Boolean containsOpenUrl(String uri) {
-        List<String> openUrls = List.of("/", "/login", "/logout", "/sign-up", "/forgot-password");
-        return openUrls.stream().anyMatch(uri::equals) || uri.contains("assets");
+        List<String> openUrls = List.of("/", "/login", "/logout", "/sign-up", "/forgot-password", "/active-account", "/users/email-verified/");
+        return openUrls.stream().anyMatch(uri::contains) || uri.contains("assets");
     }
 
 }

@@ -20,7 +20,11 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     public static final String ERROR_MSG = "errorMsg";
-
+    public static final String DISABLED = "disabled";
+    public static final String ENABLED = "enabled";
+    private static final String ACTIVE_MSG = "activeMsg";
+    private static final String ENABLED_MSG = "enabledMsg";
+    private static final String FORGOT_PASSWORD_MSG = "forgotPasswordMsg";
     private final User user;
 
     @Autowired
@@ -43,7 +47,8 @@ public class LoginController {
             modelAndView = indexController.loadIndexPage();
         } else {
             modelAndView.setViewName(PageConstants.LOGIN_FILE);
-            modelAndView.addObject(ERROR_MSG, "disabled");
+            modelAndView.addObject(ERROR_MSG, DISABLED);
+            modelAndView.addObject(ACTIVE_MSG, DISABLED);
         }
         return modelAndView;
     }
@@ -53,11 +58,16 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         try {
             UserResponseDTO userResponseDTO = loginService.login((User) genericMapper.toEntity(userRequestDTO, user.getClass()));
-            indexController.setIndexObjects(modelAndView, userResponseDTO);
-            session.setAttribute("user", userResponseDTO);
+            if (userResponseDTO != null) {
+                indexController.setIndexObjects(modelAndView, userResponseDTO);
+                session.setAttribute("user", userResponseDTO);
+            } else {
+                modelAndView.setViewName(PageConstants.LOGIN_FILE);
+                modelAndView.addObject(ENABLED_MSG, ENABLED);
+            }
         } catch (EntityNotFoundException e) {
             modelAndView.setViewName(PageConstants.LOGIN_FILE);
-            modelAndView.addObject(ERROR_MSG, "enabled");
+            modelAndView.addObject(ERROR_MSG, ENABLED);
             e.printStackTrace();
         }
         return modelAndView;
@@ -74,13 +84,30 @@ public class LoginController {
         try {
             UserResponseDTO userResponseDTO = loginService.register((User) genericMapper.toEntity(userRequestDTO, user.getClass()));
             modelAndView.setViewName(PageConstants.LOGIN_FILE);
-            modelAndView.addObject("signUpMsg", "enabled");
+            modelAndView.addObject("signUpMsg", ENABLED);
             modelAndView.addObject("userResponseDTO", userResponseDTO);
         } catch (EntityNotFoundException e) {
             modelAndView.setViewName(PageConstants.SIGN_UP_FILE);
             modelAndView.addObject(ERROR_MSG, e.getMessage());
             e.printStackTrace();
         }
+        return modelAndView;
+    }
+
+    @GetMapping("/active-account")
+    public ModelAndView loadActiveAccountPage() {
+        return new ModelAndView(PageConstants.ACTIVE_ACCOUNT_FILE);
+    }
+
+    @PostMapping("/active-account")
+    public ModelAndView loadActiveAccountPage(String code) {
+        loginService.activeRegister(code);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(PageConstants.LOGIN_FILE);
+        modelAndView.addObject(ERROR_MSG, DISABLED);
+        modelAndView.addObject(ACTIVE_MSG, ENABLED);
+
         return modelAndView;
     }
 
@@ -91,7 +118,11 @@ public class LoginController {
 
     @PostMapping("/forgot-password")
     public ModelAndView forgotPassword(String email) {
-        return new ModelAndView(PageConstants.LOGIN_FILE);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(PageConstants.LOGIN_FILE);
+        loginService.forgotPassword(email);
+        modelAndView.addObject(FORGOT_PASSWORD_MSG, ENABLED);
+        return modelAndView;
     }
 
     @GetMapping("/logout")

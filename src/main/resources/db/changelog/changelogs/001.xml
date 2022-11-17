@@ -400,5 +400,24 @@
                     tableName="tickets"/>
     </changeSet>
 
+    <changeSet id="1668432063669-1"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="users">
+            <column name="code"
+                    type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1668432063669-2"
+               author="Luiz Flavio (generated)">
+        <sql>
+            update users set code = '' where code is null;
+        </sql>
+    </changeSet>
+    <changeSet id="1668432063669-3"
+               author="Luiz Flavio (generated)">
+        <addNotNullConstraint columnName="code"
+                              tableName="users"/>
+    </changeSet>
+
 
 </databaseChangeLog>

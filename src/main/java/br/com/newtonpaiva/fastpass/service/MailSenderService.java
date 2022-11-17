@@ -28,6 +28,7 @@ public class MailSenderService {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(MAIL_FROM);
             message.setTo(email.getTo().getEmail());
+            message.setSubject(email.getSubject());
             message.setText(email.getText());
             message.setSentDate(new Date());
             emailSender.send(message);
