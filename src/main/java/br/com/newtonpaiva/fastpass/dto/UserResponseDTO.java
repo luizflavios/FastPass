@@ -16,7 +16,11 @@ public class UserResponseDTO {
     private String image;
 
     public String getImage() {
-        String encodedString = Base64.getEncoder().encodeToString(getUserImage());
-        return "data:@file/jpeg;base64," + encodedString;
+        if (getUserImage() != null) {
+            String encodedString = Base64.getEncoder().encodeToString(getUserImage());
+            return "data:@file/jpeg;base64," + encodedString;
+        } else {
+            return null;
+        }
     }
 }
