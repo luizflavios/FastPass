@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
+
+    List<Ticket> findTop4ByTicketStatusAndPaymentMethod(TicketStatus available, PaymentMethod paymentMethod);
+
     List<Ticket> findByTicketStatusAndPaymentMethod(TicketStatus available, PaymentMethod paymentMethod);
 
     Long countByTicketStatusAndPaymentMethod(TicketStatus available, PaymentMethod paymentMethod);

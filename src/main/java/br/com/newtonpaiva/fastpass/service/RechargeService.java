@@ -2,11 +2,17 @@ package br.com.newtonpaiva.fastpass.service;
 
 import br.com.newtonpaiva.fastpass.dto.CardInfoResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.QrCodeResponseDTO;
+import br.com.newtonpaiva.fastpass.dto.RechargeResponseDTO;
 import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
+import br.com.newtonpaiva.fastpass.generic.GenericMapper;
 import br.com.newtonpaiva.fastpass.model.*;
 import br.com.newtonpaiva.fastpass.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -39,6 +46,9 @@ public class RechargeService {
     private TicketRepository ticketRepository;
     @Autowired
     private RechargeRepository rechargeRepository;
+
+    @Autowired
+    private GenericMapper genericMapper;
 
     @Transactional(readOnly = true)
     public CardInfoResponseDTO buildCardInfo(UserResponseDTO loggedUser) {
@@ -81,9 +91,25 @@ public class RechargeService {
     }
 
     @Transactional(readOnly = true)
-    public List<Recharge> listMyRecharges(UserResponseDTO loggedUser) {
+    public Page<RechargeResponseDTO> listMyRecharges(UserResponseDTO loggedUser, Pageable pageable) {
+
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
         Card card = cardRepository.findByUserAndActive(loggedUser.getId()).orElseThrow(EntityNotFoundException::new);
-        return rechargeRepository.findByCardOrderByCreatedAtDesc(card);
+        List<Recharge> recharges = rechargeRepository.findByCardOrderByCreatedAtDesc(card);
+        List<RechargeResponseDTO> list;
+
+        if (recharges.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, recharges.size());
+            list = recharges.subList(startItem, toIndex).stream()
+                    .map(t -> (RechargeResponseDTO) genericMapper.toDTO(t, RechargeResponseDTO.class)).toList();
+        }
+
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), recharges.size());
     }
 
     public QrCodeResponseDTO generateQrCode(UserResponseDTO loggedUser, String value) {

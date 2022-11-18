@@ -78,10 +78,10 @@
         <div class="">
             <div class="main-menu-header">
                 <img alt="User-Profile-Image" class="img-80 img-radius"
-                     th:if="${userResponseDTO.userImage} != null" th:src="${userResponseDTO.userImage}"/>
+                     th:if="${userResponseDTO.image} != null" th:src="${userResponseDTO.image}"/>
                 <img alt="User-Profile-Image" class="img-80 img-radius"
                      src="assets/images/avatar-blank.jpg"
-                     th:unless="${userResponseDTO.userImage} != null"/>
+                     th:unless="${userResponseDTO.image} != null"/>
                 <div class="user-details">
                     <span id="more-details"><label th:text="${userResponseDTO.fullName}"></label></span>
                 </div>
@@ -97,16 +97,16 @@
                 </a>
             </li>
         </ul>
-        <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus créditos</div>
+
+        <div class="pcoded-navigation-label" data-i18n="nav.category.other">Minhas recargas</div>
         <ul class="pcoded-item pcoded-left-item">
             <li>
-                <a class="waves-effect waves-dark" th:href="@{/transactions}">
-                    <span class="pcoded-micon"><i class="ti-shopping-cart"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Minhas Transações</span>
+                <a class="waves-effect waves-dark" th:href="@{/recharges}">
+                    <span class="pcoded-micon"><i class="ti-money"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Minhas Recargas</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-
         </ul>
 
         <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus eventos</div>
@@ -120,16 +120,18 @@
             </li>
         </ul>
 
-        <div class="pcoded-navigation-label" data-i18n="nav.category.other">Minhas recargas</div>
+        <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Meus produtos</div>
         <ul class="pcoded-item pcoded-left-item">
             <li>
-                <a class="waves-effect waves-dark" th:href="@{/recharges}">
-                    <span class="pcoded-micon"><i class="ti-money"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Minhas Recargas</span>
+                <a class="waves-effect waves-dark" th:href="@{/transactions}">
+                    <span class="pcoded-micon"><i class="ti-shopping-cart"></i><b>FC</b></span>
+                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Minhas Compras</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+
         </ul>
+
     </div>
 </nav>
 
@@ -151,7 +153,7 @@
                     </div>
                 </div>
             </div>
-            <a href="index.html">
+            <a th:href="@{/index}">
                 <img alt="Theme-Logo" class="img-fluid" src="assets/images/logo-fast-sem-nome.png"/>
             </a>
             <a class="mobile-options waves-effect waves-light">
@@ -176,17 +178,17 @@
                 <li class="user-profile header-notification">
                     <a class="waves-effect waves-light" href="#!">
                         <img alt="User-Profile-Image" class="img-radius"
-                             th:if="${userResponseDTO.userImage} != null" th:src="${userResponseDTO.userImage}"/>
+                             th:if="${userResponseDTO.image} != null" th:src="${userResponseDTO.image}"/>
                         <img alt="User-Profile-Image" class="img-radius"
                              src="assets/images/avatar-blank.jpg"
-                             th:unless="${userResponseDTO.userImage} != null"/>
+                             th:unless="${userResponseDTO.image} != null"/>
 
                         <span><label th:text="${userResponseDTO.fullName}"></label></span>
                         <i class="ti-angle-down"></i>
                     </a>
                     <ul class="show-notification profile-notification">
                         <li class="waves-effect waves-light">
-                            <a href="user-profile.html">
+                            <a th:href="@{/users}">
                                 <i class="ti-user"></i> Meus Dados
                             </a>
                         </li>

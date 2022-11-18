@@ -44,7 +44,7 @@ public class Event implements Serializable, GenericEntity {
     @Column(nullable = false, name = "date_time")
     private LocalDateTime dateTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "event")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "event")
     private List<Ticket> tickets;
 
     @Enumerated(EnumType.ORDINAL)

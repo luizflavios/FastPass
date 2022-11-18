@@ -10,6 +10,7 @@
 - Liquibase Migrations
 - Thymeleaf
 - Bootstrap 4
+- JQuery
 - #### Arquitetura MVC - Server Side Render
 
 ### Features disponíveis.

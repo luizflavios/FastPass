@@ -3,6 +3,7 @@ package br.com.newtonpaiva.fastpass.model;
 import br.com.newtonpaiva.fastpass.generic.GenericEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,8 +33,9 @@ public class User implements Serializable, GenericEntity {
     private String code;
     @Column(nullable = false)
     private Boolean enabled;
-    @Column(columnDefinition = "text")
-    private String userImage;
+    @Lob
+    @Type(type = "org.hibernate.type.BinaryType")
+    private byte[] userImage;
     @Column(nullable = false, name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
