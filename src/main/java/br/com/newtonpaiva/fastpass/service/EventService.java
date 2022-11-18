@@ -14,6 +14,7 @@ import br.com.newtonpaiva.fastpass.repository.CardRepository;
 import br.com.newtonpaiva.fastpass.repository.EventRepository;
 import br.com.newtonpaiva.fastpass.repository.PaymentMethodRepository;
 import br.com.newtonpaiva.fastpass.repository.TicketRepository;
+import br.com.newtonpaiva.fastpass.util.QrCodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static br.com.newtonpaiva.fastpass.util.QrCodeGenerator.qrCodeEventBuilder;
 
 @Service
 @Slf4j
@@ -45,6 +45,8 @@ public class EventService {
     private TicketRepository ticketRepository;
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private QrCodeGenerator qrCodeGenerator;
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
     @Autowired
@@ -77,7 +79,7 @@ public class EventService {
     }
 
     public QrCodeResponseDTO generatePaymentQrCode(Integer id, UserResponseDTO loggedUser) {
-        return qrCodeEventBuilder(id, loggedUser.getId());
+        return qrCodeGenerator.qrCodeEventBuilder(id, loggedUser.getId());
     }
 
     public String buyTicket(Integer id, Integer userId) {

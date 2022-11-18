@@ -76,7 +76,8 @@
 
                 <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px"
                      th:if="'enabled' == ${enabledMsg}">
-                    Usuario ainda não foi ativado. Verifique o código enviado para seu email, e acesse a url de
+                    Usuario ainda não foi ativado. Verifique o código enviado para seu email <strong>(Verifique o
+                    Spam)</strong>, e acesse a url de
                     ativação!
                     <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                         <span aria-hidden="true">&times;</span>
@@ -94,7 +95,8 @@
 
                 <div class="alert alert-success alert-dismissible" role="alert" style="margin-top:20px"
                      th:if="'enabled' == ${signUpMsg}">
-                    Enviamos um email para: <strong><label th:text="${userResponseDTO.email}"></label></strong>, onde
+                    Enviamos um email <strong>(Verifique o
+                    Spam)</strong> para: <strong><label th:text="${userResponseDTO.email}"></label></strong>, onde
                     você encontrará as instruções necessárias e poderá começar utilizar o <strong>Fast
                     Pass</strong>!
                     <button aria-label="Close" class="close" data-dismiss="alert" type="button">
@@ -104,7 +106,8 @@
 
                 <div class="alert alert-success alert-dismissible" role="alert" style="margin-top:20px"
                      th:if="'enabled' == ${forgotPasswordMsg}">
-                    Te enviamos um email, onde você encontrará sua nova senha para você voltar a utilizar o <strong>Fast
+                    Te enviamos um email <strong>(Verifique o
+                    Spam)</strong>, onde você encontrará sua nova senha para você voltar a utilizar o <strong>Fast
                     Pass</strong>!
                     <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                         <span aria-hidden="true">&times;</span>

@@ -7,6 +7,7 @@ import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.generic.GenericMapper;
 import br.com.newtonpaiva.fastpass.model.*;
 import br.com.newtonpaiva.fastpass.repository.*;
+import br.com.newtonpaiva.fastpass.util.QrCodeGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,8 +24,6 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static br.com.newtonpaiva.fastpass.util.QrCodeGenerator.qrCodeRechargeBuilder;
 
 @Service
 @Slf4j
@@ -46,7 +45,8 @@ public class RechargeService {
     private TicketRepository ticketRepository;
     @Autowired
     private RechargeRepository rechargeRepository;
-
+    @Autowired
+    private QrCodeGenerator qrCodeGenerator;
     @Autowired
     private GenericMapper genericMapper;
 
@@ -113,7 +113,7 @@ public class RechargeService {
     }
 
     public QrCodeResponseDTO generateQrCode(UserResponseDTO loggedUser, String value) {
-        return qrCodeRechargeBuilder(new BigDecimal(value.replace(R$, "")), loggedUser.getId());
+        return qrCodeGenerator.qrCodeRechargeBuilder(new BigDecimal(value.replace(R$, "")), loggedUser.getId());
     }
 
     public String payRecharge(String value, Integer userId) {
