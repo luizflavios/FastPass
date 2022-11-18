@@ -20,6 +20,9 @@ public class PageConstants {
     public static final String TRANSACTION_NAME = "Minhas Transações";
     public static final String TRANSACTION_REASON = "Aqui você pode fazer a gestão do seu consumo";
     public static final String ACTIVE_ACCOUNT_FILE = "active-account";
+    public static final String USER_FILE = "user";
+    public static final String USER_NAME = "Meus Dados";
+    public static final String USER_REASON = "Aqui você pode fazer a gestão de seus dados";
 
     private PageConstants() {
 

@@ -419,5 +419,18 @@
                               tableName="users"/>
     </changeSet>
 
+    <changeSet id="1668798442822-1"
+               author="Luiz Flavio (generated)">
+        <dropColumn columnName="user_image"
+                    tableName="users"/>
+    </changeSet>
+    <changeSet id="1668798442822-2"
+               author="Luiz Flavio (generated)">
+        <addColumn tableName="users">
+            <column name="user_image"
+                    type="bytea"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

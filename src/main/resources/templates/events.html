@@ -49,7 +49,7 @@
                                                     <div class="col-xl-12 col-md-12">
 
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover">
+                                                            <table class="table table-sm table-hover table-bordered">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Evento</th>
@@ -82,6 +82,27 @@
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
+                                                            <nav aria-label="Page navigation example"
+                                                                 th:if="${futureEventResponseDTO.totalPages > 0}">
+                                                                <ul class="pagination justify-content-center pagination-sm">
+                                                                    <li class="page-item"
+                                                                        th:if="${futureEventResponseDTO.hasPrevious()}">
+                                                                        <a class="page-link"
+                                                                           tabindex="-1"
+                                                                           th:href="@{/events(page=${futureEventResponseDTO.number-1}, size=3)}">Previous</a>
+                                                                    </li>
+                                                                    <li class="page-item"
+                                                                        th:each="pageNumber : ${pageNumbers}"><a
+                                                                            class="page-link"
+                                                                            th:href="@{/events(page=${pageNumber - 1}, size=3)}"
+                                                                            th:text=${pageNumber}></a></li>
+                                                                    <li class="page-item"
+                                                                        th:if="${futureEventResponseDTO.hasNext()}">
+                                                                        <a class="page-link"
+                                                                           th:href="@{/events(page=${futureEventResponseDTO.number+1}, size=3)}">Next</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
                                                             <div class="text-right m-r-20"
                                                                  th:if="null != ${allEvents}">
                                                                 <a class=" b-b-primary text-primary" href="#!">Ver
@@ -525,6 +546,11 @@
                 alert("fail qrcode: " + errorThrown);
             });
     }
+
+
+
+
+
 
 
 

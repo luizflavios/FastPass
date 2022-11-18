@@ -16,6 +16,10 @@ public class GenericMapper {
         return modelMapper.map(object, tClass);
     }
 
+    public void copyValue(Object newObject, Object oldObject) {
+        modelMapper.map(newObject, oldObject);
+    }
+
     public Object toEntity(Object object, Class<?> tClass) {
         return modelMapper.map(object, tClass);
     }

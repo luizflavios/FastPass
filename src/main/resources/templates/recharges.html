@@ -139,6 +139,26 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
+                                                <nav aria-label="Page navigation example" style="padding-top:20px;"
+                                                     th:if="${rechargeListResponseDTO.totalPages > 0}">
+                                                    <ul class="pagination justify-content-center pagination-sm">
+                                                        <li class="page-item"
+                                                            th:if="${rechargeListResponseDTO.hasPrevious()}">
+                                                            <a class="page-link"
+                                                               tabindex="-1"
+                                                               th:href="@{/recharges(page=${rechargeListResponseDTO.number-1}, size=3)}">Previous</a>
+                                                        </li>
+                                                        <li class="page-item" th:each="pageNumber : ${pageNumbers}"><a
+                                                                class="page-link"
+                                                                th:href="@{/recharges(page=${pageNumber - 1}, size=3)}"
+                                                                th:text=${pageNumber}></a></li>
+                                                        <li class="page-item"
+                                                            th:if="${rechargeListResponseDTO.hasNext()}">
+                                                            <a class="page-link"
+                                                               th:href="@{/transactions(page=${rechargeListResponseDTO.number+1}, size=3)}">Next</a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
                                             </div>
                                         </div>
                                     </div>
@@ -375,6 +395,12 @@
                 alert("fail qrcode: " + errorThrown);
             });
     }
+
+
+
+
+
+
 
 
 

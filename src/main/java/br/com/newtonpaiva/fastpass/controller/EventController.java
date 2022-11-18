@@ -8,6 +8,10 @@ import br.com.newtonpaiva.fastpass.generic.GenericMapper;
 import br.com.newtonpaiva.fastpass.service.EventService;
 import br.com.newtonpaiva.fastpass.util.FastPassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/events")
@@ -33,10 +40,14 @@ public class EventController {
     private GenericMapper genericMapper;
 
     @GetMapping
-    public ModelAndView loadEventPage() {
+    public ModelAndView loadEventPage(@PageableDefault(size = 3) Pageable pageable) {
+
+        int currentPage = pageable.getPageNumber();
+        int pageSize = pageable.getPageSize();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(PageConstants.EVENT_FILE);
-        setNativePageObjects(modelAndView);
+        setNativePageObjects(modelAndView, currentPage, pageSize);
         return modelAndView;
     }
 
@@ -55,19 +66,28 @@ public class EventController {
         return ResponseEntity.ok(eventService.buyTicket(eventId, userId));
     }
 
-    private void setNativePageObjects(ModelAndView modelAndView) {
+    private void setNativePageObjects(ModelAndView modelAndView, int currentPage, int pageSize) {
         modelAndView.addObject(PageConstants.NAME_PAGE, PageConstants.EVENT_NAME);
         modelAndView.addObject(PageConstants.REASON_PAGE, PageConstants.EVENT_REASON);
         modelAndView.addObject(USER_RESPONSE_DTO, fastPassUtil.getLoggedUser());
-        modelAndView.addObject(FUTURE_EVENT_RESPONSE_DTO, genericMapper.toCollectionDTO
-                (eventService.futureEvents(fastPassUtil.getLoggedUser()),
-                        TicketResponseDTO.class));
         modelAndView.addObject(PAST_EVENT_RESPONSE_DTO, genericMapper.toCollectionDTO
                 (eventService.pastEvents(fastPassUtil.getLoggedUser()),
                         TicketResponseDTO.class));
         modelAndView.addObject(NEWER_EVENT_RESPONSE_DTO, genericMapper.toCollectionDTO
                 (eventService.newerEvents(fastPassUtil.getLoggedUser()),
                         EventResponseDTO.class));
+
+        Page<TicketResponseDTO> ticketResponseDTOPage = eventService
+                .pageFutureEvents(fastPassUtil.getLoggedUser(), PageRequest.of(currentPage, pageSize));
+        modelAndView.addObject(FUTURE_EVENT_RESPONSE_DTO, ticketResponseDTOPage);
+
+        if (ticketResponseDTOPage.getTotalPages() > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, ticketResponseDTOPage.getTotalPages())
+                    .boxed()
+                    .toList();
+            modelAndView.addObject("pageNumbers", pageNumbers);
+        }
+
     }
 
 }
