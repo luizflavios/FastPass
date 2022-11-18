@@ -4,8 +4,11 @@ import br.com.newtonpaiva.fastpass.dto.UserResponseDTO;
 import br.com.newtonpaiva.fastpass.enums.EmailType;
 import br.com.newtonpaiva.fastpass.generic.GenericMapper;
 import br.com.newtonpaiva.fastpass.model.Card;
+import br.com.newtonpaiva.fastpass.model.PaymentMethod;
+import br.com.newtonpaiva.fastpass.model.Pix;
 import br.com.newtonpaiva.fastpass.model.User;
 import br.com.newtonpaiva.fastpass.repository.CardRepository;
+import br.com.newtonpaiva.fastpass.repository.PaymentMethodRepository;
 import br.com.newtonpaiva.fastpass.repository.UserRepository;
 import br.com.newtonpaiva.fastpass.util.CardGenerator;
 import br.com.newtonpaiva.fastpass.util.EmailGenerator;
@@ -24,6 +27,7 @@ import java.util.UUID;
 public class LoginService {
 
     public static final String MD_5 = "MD5";
+    public static final String NOT_USED = "N/A";
     private final UserResponseDTO userResponseDTO;
 
 
@@ -33,6 +37,8 @@ public class LoginService {
     private UserRepository userRepository;
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private PaymentMethodRepository paymentMethodRepository;
     @Autowired
     private EmailGenerator emailGenerator;
     @Autowired
@@ -75,8 +81,17 @@ public class LoginService {
 
         user.setEnabled(Boolean.TRUE);
         userRepository.saveAndFlush(user);
+
         Card card = CardGenerator.generate(user);
         cardRepository.saveAndFlush(card);
+
+        PaymentMethod paymentMethod = PaymentMethod.builder()
+                .active(Boolean.TRUE)
+                .user(user)
+                .pix(Pix.builder().qrCode(NOT_USED).build())
+                .build();
+        paymentMethodRepository.saveAndFlush(paymentMethod);
+
         log.info("Active user completed with success! - " + user.getEmail());
     }
 
